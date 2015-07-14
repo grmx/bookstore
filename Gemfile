@@ -13,6 +13,7 @@ gem 'sdoc',         '~> 0.4.0', group: :doc
 
 gem 'haml-rails'
 gem 'rails_admin'
+gem 'devise'
 
 group :development, :test do
   gem 'byebug'
@@ -34,4 +35,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'faker'
+  gem 'launchy'
 end
