@@ -37,6 +37,7 @@ feature 'Create author', %q{
     end
 
     expect(page.find('.alert')).to have_content 'Author failed to be created'
+    expect(current_path).to eq rails_admin.new_path(model_name: 'author')
   end
 
   scenario 'Non-authorized user tries to create an author' do
