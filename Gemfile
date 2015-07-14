@@ -15,5 +15,20 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'spring-commands-rspec'
+  gem 'guard-rspec'
 end
 
+group :development do
+  gem 'pry-rails'
+  gem 'pry-doc'
+end
+
+group :test do
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'faker'
+end
