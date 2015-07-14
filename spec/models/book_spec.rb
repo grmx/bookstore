@@ -10,4 +10,8 @@ RSpec.describe Book, type: :model do
         is_greater_than_or_equal_to(0.01)
     end
   end
+
+  describe 'associations' do
+    it { should belong_to(:author) }
+  end
 end
