@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: bookstore_development
+
+test:
+  <<: *default
+  database: bookstore_test
+
+production:
+  <<: *default
+  database: bookstore_production
+  username: bookstore
+  password: <%= ENV['BOOKSTORE_DATABASE_PASSWORD'] %>
