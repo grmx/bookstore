@@ -9,7 +9,6 @@ feature 'User sees best sellers', %q{
 
   scenario 'Visitor searches books on main page' do
     visit root_path
-    save_and_open_page
     books.each do |book|
       expect(page).to have_content(book.title)
     end
