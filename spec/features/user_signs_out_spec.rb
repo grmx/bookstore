@@ -8,12 +8,7 @@ feature 'User sign out', %q{
   given(:user) { create(:user) }
 
   scenario 'Registered user tries to sign out' do
-    visit new_user_session_path
-    within '#new_user' do
-      fill_in 'Email',    with: user.email
-      fill_in 'Password', with: user.password
-      click_on 'Log in'
-    end
+    sign_in(user)
 
     expect(page).to have_content 'Signed in successfully.'
     expect(current_path).to eq root_path

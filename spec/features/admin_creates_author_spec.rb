@@ -6,8 +6,12 @@ feature 'Create author', %q{
   I want to be able to create the author
 } do
 
+  given(:user) { create(:user) }
+  given(:admin) { create(:admin) }
+
   scenario 'Authorized user creates an author with valid attributes' do
     author = build(:author)
+    sign_in(admin)
     visit rails_admin.new_path(model_name: 'author')
     within '#new_author' do
       fill_in 'First name',  with: author.first_name
@@ -24,6 +28,7 @@ feature 'Create author', %q{
   end
 
   scenario 'Authorized user creates an author with invalid attributes' do
+    sign_in(admin)
     visit rails_admin.new_path(model_name: 'author')
     within '#new_author' do
       fill_in 'First name', with: ''
@@ -35,23 +40,17 @@ feature 'Create author', %q{
   end
 
   scenario 'Non-authorized user tries to create an author' do
-    user = create(:user)
-    visit new_user_session_path
-    within '#new_user' do
-      fill_in 'Email',    with: user.email
-      fill_in 'Password', with: user.password
-      click_on 'Log in'
-    end
+    sign_in(user)
     visit rails_admin.new_path(model_name: 'author')
 
-    expect(page).to have_css '.alert', text: 'You need to sign in as administrator'
     expect(current_path).to eq root_path
   end
 
   scenario 'Non-authenticated user tries to create an author' do
     visit rails_admin.new_path(model_name: 'author')
 
-    expect(page).to have_css '.alert', text: 'You need to sign in or sign up'
-    expect(current_path).to eq root_path
+    expect(page).to have_css '.alert',
+      text: 'You need to sign in or sign up before continuing.'
+    expect(current_path).to eq new_user_session_path
   end
 end
