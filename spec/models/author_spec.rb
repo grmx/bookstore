@@ -9,4 +9,11 @@ RSpec.describe Author, type: :model do
   describe 'association' do
     it { should have_many(:books).dependent(:destroy) }
   end
+
+  describe '#full_name' do
+    it 'returns full author\'s name' do
+      author = create(:author)
+      expect(author.full_name).to eq "#{author.first_name} #{author.last_name}"
+    end
+  end
 end

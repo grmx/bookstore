@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-feature 'User sees best sellers', %q{
+feature 'View best sellers', %q{
   As a visitor or a user
-  I can see best sellers on the main page
+  I want to see best sellers on the main page
 } do
 
   given!(:books) { create_list(:book, 3) }

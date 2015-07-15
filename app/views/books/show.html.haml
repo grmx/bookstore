@@ -1,0 +1,6 @@
+%h2= @book.title
+
+%ul
+  %li= number_to_currency @book.price
+  %li= @book.description
+  %li= @book.author.full_name

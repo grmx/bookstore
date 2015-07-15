@@ -4,5 +4,6 @@ FactoryGirl.define do
     description { Faker::Lorem.paragraph }
     price "9.99"
     stock 17
+    author
   end
 end
