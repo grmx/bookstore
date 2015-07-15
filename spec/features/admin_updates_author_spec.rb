@@ -18,6 +18,7 @@ feature 'Update author', %q{
       fill_in 'Last name',  with: 'Weir'
       click_on 'Save'
     end
+
     expect(page.find('.alert')).to have_content 'Author successfully updated'
     expect(find('.author_row[1] .first_name_field')).to have_content 'Andy'
     expect(find('.author_row[1] .last_name_field')).to have_content 'Weir'
@@ -31,6 +32,7 @@ feature 'Update author', %q{
       fill_in 'Last name',  with: ''
       click_on 'Save'
     end
+
     expect(page.find('.alert')).to have_content 'Author failed to be updated'
     expect(current_path).
       to eq rails_admin.edit_path(model_name: 'author', id: author.id)
@@ -39,6 +41,7 @@ feature 'Update author', %q{
   scenario 'Non-authorized user tries to edit the author' do
     sign_in(user)
     visit rails_admin.edit_path(model_name: 'author', id: author.id)
+
     expect(current_path).to eq root_path
   end
 
