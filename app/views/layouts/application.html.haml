@@ -7,14 +7,22 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
+  %header.navbar.navbar-fixed-top
+    .container
+      .navbar-header
+        = link_to 'Bookstore', root_path, class: 'navbar-brand logo'
 
-    %ul
-      - if user_signed_in?
-        %li= link_to 'Sign out', destroy_user_session_path, method: :delete
-      - else
-        %li= link_to 'Sign in', new_user_session_path
-        %li= link_to 'Sign up', new_user_registration_path
+      %nav
+        %ul.nav.navbar-nav.navbar-right
+          - if user_signed_in?
+            %li= link_to current_user.email, edit_user_registration_path
+            %li= link_to 'Sign out', destroy_user_session_path, method: :delete
+          - else
+            %li= link_to 'Sign in', new_user_session_path
+            %li= link_to 'Sign up', new_user_registration_path
 
-    %p.notice= notice
-    %p.alert= alert
-    = yield
+  .container
+    .row
+      - flash.each do |name, msg|
+        = content_tag :div, msg, class: "alert alert-#{name}"
+      = yield
