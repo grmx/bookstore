@@ -3,6 +3,6 @@ module ApplicationHelper
   private
 
   def sidebar_categories
-    @categories ||= Category.all
+    Category.all
   end
 end

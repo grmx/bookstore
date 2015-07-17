@@ -30,6 +30,6 @@ feature 'User sign up', %q{
 
     expect(page).to_not have_content 'Sign out'
     expect(page).to have_content 'Sign up'
-    expect(page).to have_content 'errors prohibited this user from being saved'
+    expect(page).to have_css 'div .alert'
   end
 end
