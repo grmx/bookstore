@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   root 'books#index'
   resources :books
   resources :categories, only: :show
+  get 'about', to: 'pages#about'
+  get 'help',  to: 'pages#help'
 end
