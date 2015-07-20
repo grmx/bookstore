@@ -3,8 +3,12 @@ FactoryGirl.define do
     name { Faker::Lorem.sentence }
 
     factory :category_with_books do
-      after(:create) do |category|
-        create_list(:book, 3, category: category)
+      transient do
+        books_count 3
+      end
+
+      after(:create) do |category, evaluator|
+        create_list(:book, evaluator.books_count, category: category)
       end
     end
   end

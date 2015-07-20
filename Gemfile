@@ -14,6 +14,7 @@ gem 'sdoc',         '~> 0.4.0', group: :doc
 gem 'haml-rails'
 gem 'rails_admin'
 gem 'devise'
+gem 'kaminari'
 
 gem 'bootstrap-sass', '~> 3.3.5'
 

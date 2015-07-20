@@ -8,3 +8,6 @@
           %h3= link_to book.title, book_path(book)
           %p= truncate book.description
           %p.price= number_to_currency book.price
+
+%center
+  = paginate @books

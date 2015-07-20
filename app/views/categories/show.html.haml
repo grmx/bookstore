@@ -1,7 +1,7 @@
 %h2= @category.name
 
 .row
-  - @category.books.in_groups_of(3, false) do |group|
+  - @books.in_groups_of(3, false) do |group|
     .row
       - group.each do |book|
         .col-md-4.book_item
@@ -9,3 +9,5 @@
           %p= truncate book.description
           %p.price= number_to_currency book.price
 
+%center
+  = paginate @books

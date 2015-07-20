@@ -6,6 +6,7 @@ RSpec.describe "categories/show", type: :view do
 
   before do
     assign(:category, category)
+    assign(:books, category.books.page(params[:page]))
     render
   end
 

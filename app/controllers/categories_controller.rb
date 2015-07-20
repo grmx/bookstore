@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   def show
-    @category = Category.includes(:books).find(params[:id])
+    @category = Category.find(params[:id])
+    @books = @category.books.page(params[:page]).per(9)
   end
 end

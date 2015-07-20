@@ -306,6 +306,7 @@ DEPENDENCIES
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   launchy
   pg
   pry-doc
