@@ -1,6 +1,15 @@
-%h2= @book.title
+%h2
+  = @book.title
 
 %ul
   %li= number_to_currency @book.price
   %li= @book.description
   %li= @book.author.full_name
+
+- if can? :manage, :all
+  %p
+    = link_to rails_admin.edit_path(model_name: 'Book', id: @book.id) do
+      %span.glyphicon.glyphicon-pencil{'aria-hidden': true}
+    = link_to rails_admin.delete_path(model_name: 'Book', id: @book.id),
+      data: { confirm: 'Are you sure?' } do
+      %span.glyphicon.glyphicon-remove{'aria-hidden': true}

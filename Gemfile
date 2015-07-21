@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.2.2'
 
 gem 'rails',        '4.2.3'
 gem 'pg'
@@ -14,6 +14,7 @@ gem 'sdoc',         '~> 0.4.0', group: :doc
 gem 'haml-rails'
 gem 'rails_admin'
 gem 'devise'
+gem 'cancancan'
 gem 'kaminari'
 
 gem 'bootstrap-sass', '~> 3.3.5'
