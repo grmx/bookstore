@@ -33,6 +33,10 @@ RSpec.configure do |config|
   # Extend Utilities
   config.include FeaturesSpecHelper, type: :feature
 
+  # Devise Helpers
+  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::TestHelpers, type: :view
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
