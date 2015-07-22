@@ -14,6 +14,7 @@ gem 'sdoc',         '~> 0.4.0', group: :doc
 gem 'haml-rails'
 gem 'rails_admin'
 gem 'devise'
+gem 'omniauth-facebook'
 gem 'cancancan'
 gem 'kaminari'
 
@@ -27,6 +28,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
+  gem 'dotenv-rails'
 end
 
 group :development do
