@@ -4,7 +4,7 @@
 .row
   .col-md-offset-4.col-md-4
     = form_for(resource, as: resource_name, url: registration_path(resource_name),
-      html: { method: :put }) do |f|
+      html: { method: :put, multipart: true }) do |f|
       = devise_error_messages!
       .form-group
         = f.label :email
@@ -23,6 +23,20 @@
         = f.label :current_password
         %i (we need your current password to confirm your changes)
         = f.password_field :current_password, autocomplete: 'off', class: 'form-control'
+      .form-group
+        = f.label :avatar
+        - if current_user.avatar?
+          %div
+          = image_tag(current_user.avatar)
+        = f.file_field :avatar
+        %p.help-block
+          200x200px:
+          = current_user.avatar.extension_white_list.join(', ')
+        = f.hidden_field :avatar_cache
+      %div.checkbox
+        %label
+          = f.check_box :remove_avatar
+          = f.label :remove_avatar
       .form-group
         = f.submit 'Update', class: 'btn btn-primary'
     %h3 Cancel my account

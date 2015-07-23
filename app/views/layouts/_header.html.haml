@@ -9,6 +9,8 @@
             %li= link_to 'Admin', rails_admin.dashboard_path
           %li= link_to current_user.email, edit_user_registration_path
           %li= link_to 'Sign out', destroy_user_session_path, method: :delete
+          - if current_user.avatar?
+            %li= image_tag current_user.avatar.thumb, class: 'img-circle'
         - else
           %li= link_to 'Sign in', new_user_session_path
           %li= link_to 'Sign up', new_user_registration_path

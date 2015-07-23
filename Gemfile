@@ -17,6 +17,8 @@ gem 'devise'
 gem 'omniauth-facebook'
 gem 'cancancan'
 gem 'kaminari'
+gem 'mini_magick'
+gem 'carrierwave'
 
 gem 'bootstrap-sass', '~> 3.3.5'
 
