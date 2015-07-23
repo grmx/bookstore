@@ -2,6 +2,7 @@
   = @book.title
 
 %ul
+  %li= image_tag @book.cover
   %li= number_to_currency @book.price
   %li= @book.description
   %li= @book.author.full_name

@@ -6,5 +6,6 @@ FactoryGirl.define do
     stock 17
     category
     author
+    cover { Rack::Test::UploadedFile.new("#{Rails.root}/spec/support/uploads/cover.jpg", 'image/jpeg') }
   end
 end

@@ -12,6 +12,10 @@ RSpec.describe "books/show", type: :view do
     expect(rendered).to have_css 'h2', text: book.title
   end
 
+  it 'has a book cover' do
+    expect(rendered).to have_css "img[src$='cover.jpg']"
+  end
+
   it 'has a book price' do
     expect(rendered).to have_content book.price
   end
