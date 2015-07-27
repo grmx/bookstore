@@ -20,23 +20,37 @@ RSpec.describe Order, type: :model do
     it { should have_many(:order_items).dependent(:destroy) }
   end
 
-  describe '.add_book' do
+  describe 'additional methods' do
     let(:book) { create(:book) }
     let(:order) { build(:order) }
 
     before { order.add_book(book) }
 
-    it 'adds a book to the order' do
-      expect(order.order_items.first.book).to eq book
+    describe '.add_book' do
+      it 'adds a book to the order' do
+        expect(order.order_items.first.book).to eq book
+      end
+
+      it 'doesn\'t return the same book twice' do
+        expect { order.add_book(book) }.to_not change { order.order_items }
+      end
+
+      it 'increments order item quantity' do
+        expect { order.add_book(book) }.
+          to change { order.order_items.first.quantity }.from(1).to(2)
+      end
     end
 
-    it 'doesn\'t return the same book twice' do
-      expect { order.add_book(book) }.to_not change { order.order_items }
-    end
+    describe '.calc_total_price' do
+      it 'returns total price for an order item' do
+        expect(order.calc_total_price).to eq book.price
+      end
 
-    it 'increments order item quantity' do
-      expect { order.add_book(book) }.
-        to change { order.order_items.first.quantity }.from(1).to(2)
+      it 'returns total price for several order items' do
+        order.add_book(book)
+        expect { order.calc_total_price }.
+          to change { order.total_price }.from(book.price).to(book.price * 2)
+      end
     end
   end
 end

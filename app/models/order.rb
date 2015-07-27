@@ -14,4 +14,14 @@ class Order < ActiveRecord::Base
     current_item.increment(:quantity)
     current_item.save
   end
+
+  def calc_total_price
+    self.total_price = self.order_items.map do |oi|
+      if oi.valid?
+        oi.quantity * oi.price
+      else
+        nil
+      end
+    end.sum
+  end
 end
