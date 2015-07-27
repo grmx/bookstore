@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726170642) do
+ActiveRecord::Schema.define(version: 20150727075558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,18 @@ ActiveRecord::Schema.define(version: 20150726170642) do
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
+  create_table "order_items", force: :cascade do |t|
+    t.decimal  "price",      precision: 5, scale: 2
+    t.integer  "quantity"
+    t.integer  "book_id"
+    t.integer  "order_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "order_items", ["book_id"], name: "index_order_items_on_book_id", using: :btree
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
+
   create_table "orders", force: :cascade do |t|
     t.decimal  "total_price",  precision: 5, scale: 2
     t.string   "state",                                default: "in_progress"
@@ -91,5 +103,7 @@ ActiveRecord::Schema.define(version: 20150726170642) do
   add_foreign_key "books", "authors"
   add_foreign_key "books", "categories"
   add_foreign_key "identities", "users"
+  add_foreign_key "order_items", "books"
+  add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"
 end

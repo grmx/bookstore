@@ -24,8 +24,9 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'association' do
+  describe 'associations' do
     it { should have_many(:identities) }
+    it { should have_many(:orders).dependent(:destroy) }
   end
 
   describe '.find_for_oauth' do
