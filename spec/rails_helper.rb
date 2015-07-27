@@ -32,6 +32,7 @@ RSpec.configure do |config|
 
   # Extend Utilities
   config.include FeaturesSpecHelper, type: :feature
+  config.extend ControllersSpecHelper, type: :controller
 
   # Devise Helpers
   config.include Devise::TestHelpers, type: :controller
