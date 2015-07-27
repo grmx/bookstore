@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
     redirect_to main_app.root_path, :alert => exception.message
   end
 
+  def current_order
+    if session[:order_id].present?
+      Order.find(session[:order_id])
+    else
+      current_user.orders.build
+    end
+  end
+
   protected
 
   def configure_permitted_parameters

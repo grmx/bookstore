@@ -7,6 +7,9 @@
   %li= @book.description
   %li= @book.author.full_name
 
+  = button_to 'Add to Cart', order_items_path(book_id: @book),
+    class: 'btn btn-success btn-sm'
+
 - if can? :manage, :all
   %p
     = link_to rails_admin.edit_path(model_name: 'Book', id: @book.id) do

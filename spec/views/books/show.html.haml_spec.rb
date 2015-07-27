@@ -27,4 +27,8 @@ RSpec.describe "books/show", type: :view do
   it 'has a book author' do
     expect(rendered).to have_content book.author.full_name
   end
+
+  it 'has a "Add to Cart" button' do
+    expect(rendered).to have_button 'Add to Cart'
+  end
 end
