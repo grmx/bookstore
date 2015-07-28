@@ -1,11 +1,21 @@
-// Place all the styles related to the Books controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 .book_item {
   text-align: center;
   .price {
     font-size: 1.3em;
     font-weight: bold;
+  }
+}
+
+.single-book {
+  .info {
+    margin: 0 0 15px 0;
+    padding: 0;
+  }
+  .price {
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+  .add-to-cart {
+    text-align: right;
   }
 }

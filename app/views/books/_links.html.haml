@@ -1,0 +1,10 @@
+%p
+  = link_to rails_admin.edit_path(model_name: 'Book', id: @book.id),
+    class: 'btn btn-xs btn-success' do
+    %span.glyphicon.glyphicon-pencil{'aria-hidden': true}
+    Edit
+  &nbsp;
+  = link_to rails_admin.delete_path(model_name: 'Book', id: @book.id),
+    data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' do
+    %span.glyphicon.glyphicon-remove{'aria-hidden': true}
+    Delete

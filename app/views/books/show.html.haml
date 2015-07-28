@@ -1,19 +1,19 @@
-%h2
+%h3
   = @book.title
+  %small
+    by
+    = @book.author.full_name
 
-%ul
-  %li= image_tag @book.cover
-  %li= number_to_currency @book.price
-  %li= @book.description
-  %li= @book.author.full_name
+.row.single-book
+  .col-md-4
+    = image_tag @book.cover, title: @book.title
+  .col-md-8
+    .row.info
+      .col-md-6.price= number_to_currency @book.price
+      .col-md-6.add-to-cart= button_to 'Add to Cart',
+        order_items_path(book_id: @book), class: 'btn btn-sm btn-success'
+    .row
+      .col-md-12
+        = @book.description
+        = render 'links' if can? :manage, Book
 
-  = button_to 'Add to Cart', order_items_path(book_id: @book),
-    class: 'btn btn-success btn-sm'
-
-- if can? :manage, :all
-  %p
-    = link_to rails_admin.edit_path(model_name: 'Book', id: @book.id) do
-      %span.glyphicon.glyphicon-pencil{'aria-hidden': true}
-    = link_to rails_admin.delete_path(model_name: 'Book', id: @book.id),
-      data: { confirm: 'Are you sure?' } do
-      %span.glyphicon.glyphicon-remove{'aria-hidden': true}

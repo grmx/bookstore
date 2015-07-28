@@ -1,34 +1,35 @@
 %h1 Your cart
 
 - unless @order.order_items.empty?
-  %table.table
-    %thead
-      %tr
-        %th
-        %th Book
-        %th Price
-        %th Qty
-        %th Total
-        %th
-    %tbody
-      - @order.order_items.each do |item|
+  .row.col-md-12
+    %table.table
+      %thead
         %tr
-          %td= image_tag item.book.cover.thumb
-          %td
-            %p.book-title= link_to item.book.title, book_path(item.book)
-            %p= truncate item.book.description, length: 100
-          %td= number_to_currency item.price
-          %td
-            %center= item.quantity
-          %td= number_to_currency(item.quantity * item.price)
-          %td
-            = link_to order_item_path(item), method: :delete,
-              data: { confirm: 'Are you sure?' } do
-              %span.glyphicon.glyphicon-remove
-      %tr
-        %td.subtotal{colspan: 4} Subtotal:
-        %td{colspan: 2}
-          %b= number_to_currency @order.total_price
+          %th
+          %th Book
+          %th Price
+          %th Qty
+          %th Total
+          %th
+      %tbody
+        - @order.order_items.each do |item|
+          %tr
+            %td= image_tag item.book.cover.thumb
+            %td
+              %p.book-title= link_to item.book.title, book_path(item.book)
+              %p= truncate item.book.description, length: 100
+            %td= number_to_currency item.price
+            %td
+              %center= item.quantity
+            %td= number_to_currency(item.quantity * item.price)
+            %td
+              = link_to order_item_path(item), method: :delete,
+                data: { confirm: 'Are you sure?' } do
+                %span.glyphicon.glyphicon-remove
+        %tr
+          %td.subtotal{colspan: 4} Subtotal:
+          %td{colspan: 2}
+            %b= number_to_currency @order.total_price
 - else
   %p
     Your shopping cart is empty.

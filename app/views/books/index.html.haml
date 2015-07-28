@@ -5,8 +5,10 @@
     .row
       - group.each do |book|
         .col-md-4.book_item
-          %p= image_tag book.cover.thumb
-          %h3= link_to book.title, book_path(book)
+          %p
+            = link_to book_path(book) do
+              = image_tag book.cover.thumb, title: book.title, height: 200
+          %h4= link_to book.title, book_path(book)
           %p= truncate book.description
           %p.price= number_to_currency book.price
 
