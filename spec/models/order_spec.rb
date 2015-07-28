@@ -26,6 +26,20 @@ RSpec.describe Order, type: :model do
 
     before { order.add_book(book) }
 
+    describe '.in_progress' do
+      let(:user) { create(:user) }
+      let(:orders) { create_list(:order_with_random_state, 8, user: user) }
+
+      it 'doesn\'t return all orders'  do
+        expect(user.orders.in_progress).to_not match_array(order)
+      end
+
+      it 'returns orders in progress' do
+        expect(user.orders.in_progress).
+          to match_array(user.orders.where(state: 'in_progress'))
+      end
+    end
+
     describe '.add_book' do
       it 'adds a book to the order' do
         expect(order.order_items.first.book).to eq book
@@ -35,7 +49,7 @@ RSpec.describe Order, type: :model do
         expect { order.add_book(book) }.to_not change { order.order_items }
       end
 
-      it 'increments order item quantity' do
+      it 'changes order item quantity' do
         expect { order.add_book(book) }.
           to change { order.order_items.first.quantity }.from(1).to(2)
       end

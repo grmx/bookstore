@@ -20,7 +20,7 @@ RSpec.describe OrderItemsController, type: :controller do
 
       it 'redirects to root_path' do
         post :create, book_id: book.id
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to cart_path
       end
     end
 

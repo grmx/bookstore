@@ -8,6 +8,8 @@ class Order < ActiveRecord::Base
   validates :state,
     inclusion: { in: %w(in_progress in_queue in_delivery delivered canceled) }
 
+  scope :in_progress, -> { where(state: 'in_progress') }
+
   def add_book(book)
     current_item = self.order_items.find_or_initialize_by(book: book,
       price: book.price)

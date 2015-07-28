@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :books
   resources :categories, only: :show
   resources :order_items, only: [:create, :update, :destroy]
+  resource  :cart, only: :show
   get 'about', to: 'pages#about'
   get 'help',  to: 'pages#help'
 end

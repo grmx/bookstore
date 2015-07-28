@@ -1,4 +1,6 @@
 class OrderItemsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     book = Book.find(params[:book_id])
     order = current_order
@@ -8,7 +10,7 @@ class OrderItemsController < ApplicationController
     if order.save
       flash[:success] = 'The book successfully added to the Cart.'
       session[:order_id] = order.id
-      redirect_to root_path
+      redirect_to cart_path
     else
       flash.now[:danger] = 'We have some problems.'
       redirect_to :back

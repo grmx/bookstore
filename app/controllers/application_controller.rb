@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_order
-    if session[:order_id].present?
-      Order.find(session[:order_id])
+    if current_user.orders.in_progress.present?
+      current_user.orders.in_progress.last
     else
       current_user.orders.build
     end

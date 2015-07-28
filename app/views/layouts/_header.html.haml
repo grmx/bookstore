@@ -7,6 +7,10 @@
         - if user_signed_in?
           - if can? :access, :rails_admin
             %li= link_to 'Admin', rails_admin.dashboard_path
+          %li
+            = link_to cart_path do
+              %span.glyphicon.glyphicon-shopping-cart
+              Cart (#{cart_counter})
           %li= link_to current_user.email, edit_user_registration_path
           %li= link_to 'Sign out', destroy_user_session_path, method: :delete
           - if current_user.avatar?
