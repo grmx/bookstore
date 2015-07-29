@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe OrderItemsController, type: :controller do
-  let(:user) { create(:user) }
   let(:book) { create(:book) }
 
+  sign_in_user
+
   describe 'POST #create' do
-    sign_in_user
 
     context 'with valid attributes' do
       it 'saves an order_item in the database' do
@@ -29,6 +29,25 @@ RSpec.describe OrderItemsController, type: :controller do
         expect { post :create, book_id: 'abcd' }
           .to raise_error(ActiveRecord::RecordNotFound)
       end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    let!(:order_item) { create(:order_item) }
+
+    it 'deletes an order item' do
+      expect { delete :destroy, id: order_item }.
+        to change(OrderItem, :count).by(-1)
+    end
+
+    it 'assigns a warning flash message' do
+      delete :destroy, id: order_item
+      expect(flash[:warning]).not_to be_nil
+    end
+
+    it 'redirects to the cart' do
+      delete :destroy, id: order_item
+      expect(response).to redirect_to cart_path
     end
   end
 end

@@ -16,4 +16,14 @@ class OrderItemsController < ApplicationController
       redirect_to :back
     end
   end
+
+  def destroy
+    order_item = OrderItem.find(params[:id])
+    order_item.destroy
+    order = order_item.order
+    order.calc_total_price
+    order.save
+    flash[:warning] = 'The book successfully removed from shopping cart.'
+    redirect_to cart_path
+  end
 end
