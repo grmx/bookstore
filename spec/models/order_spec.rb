@@ -18,6 +18,8 @@ RSpec.describe Order, type: :model do
   describe 'associations' do
     it { should belong_to(:user) }
     it { should have_many(:order_items).dependent(:destroy) }
+    it { should belong_to(:billing_address).class_name('Address') }
+    it { should belong_to(:shipping_address).class_name('Address') }
   end
 
   describe 'additional methods' do
