@@ -9,7 +9,7 @@ RSpec.describe "books/show", type: :view do
   end
 
   it 'has a book title' do
-    expect(rendered).to have_css 'h2', text: book.title
+    expect(rendered).to have_css 'h3', text: book.title
   end
 
   it 'has a book cover' do

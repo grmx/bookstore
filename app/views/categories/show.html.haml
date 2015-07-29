@@ -5,7 +5,7 @@
     .row
       - group.each do |book|
         .col-md-4.book_item
-          %h3= link_to book.title, book_path(book)
+          %h4= link_to book.title, book_path(book)
           %p= truncate book.description
           %p.price= number_to_currency book.price
 
