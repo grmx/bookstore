@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729111833) do
+ActiveRecord::Schema.define(version: 20150731154811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,13 @@ ActiveRecord::Schema.define(version: 20150729111833) do
 
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true, using: :btree
 
+  create_table "deliveries", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "price",      precision: 5, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "provider"
@@ -90,8 +97,10 @@ ActiveRecord::Schema.define(version: 20150729111833) do
     t.datetime "updated_at",                                                          null: false
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
+    t.integer  "delivery_id"
   end
 
+  add_index "orders", ["delivery_id"], name: "index_orders_on_delivery_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -119,5 +128,6 @@ ActiveRecord::Schema.define(version: 20150729111833) do
   add_foreign_key "identities", "users"
   add_foreign_key "order_items", "books"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "deliveries"
   add_foreign_key "orders", "users"
 end

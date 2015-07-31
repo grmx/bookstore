@@ -20,6 +20,7 @@ RSpec.describe Order, type: :model do
     it { should have_many(:order_items).dependent(:destroy) }
     it { should belong_to(:billing_address).class_name('Address') }
     it { should belong_to(:shipping_address).class_name('Address') }
+    it { should belong_to(:delivery) }
   end
 
   describe 'additional methods' do
