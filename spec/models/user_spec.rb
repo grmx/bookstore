@@ -27,6 +27,7 @@ RSpec.describe User, type: :model do
   describe 'associations' do
     it { should have_many(:identities) }
     it { should have_many(:orders).dependent(:destroy) }
+    it { should have_one(:credit_card).dependent(:destroy) }
   end
 
   describe '.find_for_oauth' do

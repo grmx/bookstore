@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :orders, dependent: :destroy
   has_many :identities
 
+  has_one :credit_card, dependent: :destroy
+
   validates :email,
     format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
