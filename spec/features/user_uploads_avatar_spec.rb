@@ -5,7 +5,7 @@ feature 'Upload avatar', %q{
   I want to be able to upload avatar
 } do
 
-  let!(:user) { create(:user) }
+  given!(:user) { create(:user) }
 
   background do
     sign_in(user)
@@ -18,7 +18,8 @@ feature 'Upload avatar', %q{
     click_on 'Update'
 
     expect(page).to have_content 'Your account has been updated successfully'
-    expect(page).to have_css "img[src$='thumb_avatar.jpg']"
+    visit edit_user_registration_path
+    expect(page).to have_css "img[src$='avatar.jpg']"
   end
 
   scenario 'User changes an avatar' do
@@ -26,7 +27,8 @@ feature 'Upload avatar', %q{
     click_on 'Update'
 
     expect(page).to have_content 'Your account has been updated successfully'
-    expect(page).to have_css "img[src$='thumb_avatar_new.jpg']"
+    visit edit_user_registration_path
+    expect(page).to have_css "img[src$='avatar_new.jpg']"
   end
 
 end

@@ -1,16 +1,3 @@
-%h1 All books
+%h2 All books
 
-.row
-  - @books.in_groups_of(3, false) do |group|
-    .row
-      - group.each do |book|
-        .col-md-4.book_item
-          %p
-            = link_to book_path(book) do
-              = image_tag book.cover.thumb, title: book.title, height: 200
-          %h4= link_to book.title, book_path(book)
-          %p= truncate book.description
-          %p.price= number_to_currency book.price
-
-%center
-  = paginate @books
+= render 'books'

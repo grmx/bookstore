@@ -10,10 +10,10 @@
   = render 'layouts/header'
   .container
     .row
-      .col-md-9
+      .col-sm-9
         = render 'layouts/message'
         = yield
-      .col-md-3
+      .col-sm-3
         .list-group
           - sidebar_categories.each do |category|
             = link_to category.name, category, class: 'list-group-item'

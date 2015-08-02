@@ -1,35 +1,55 @@
-%h1 Your cart
+%h2 Your cart
 
 - unless @order.order_items.empty?
-  .row.col-md-12
-    %table.table
-      %thead
-        %tr
-          %th
-          %th Book
-          %th Price
-          %th Qty
-          %th Total
-          %th
-      %tbody
-        - @order.order_items.each do |item|
-          %tr
-            %td= image_tag item.book.cover.thumb
-            %td
-              %p.book-title= link_to item.book.title, book_path(item.book)
-              %p= truncate item.book.description, length: 100
-            %td= number_to_currency item.price
-            %td
-              %center= item.quantity
-            %td= number_to_currency(item.quantity * item.price)
-            %td
+  .panel.panel-info
+    .panel-heading
+      .panel-title
+        .row
+          .col-xs-6
+            %h5
+              %span.glyphicon.glyphicon-shopping-cart
+              Shopping Cart
+          .col-xs-6
+            = link_to books_path, class: 'btn btn-primary btn-sm btn-block' do
+              %span.glyphicon.glyphicon-share-alt
+                Continue shopping
+    .panel-body
+      - @order.order_items.each do |item|
+        .row
+          .col-xs-2
+            = link_to item.book do
+              = image_tag item.book.cover.thumb, class: 'img-responsive', title: item.book.title
+          .col-xs-4
+            %h4.product-name
+              %strong= link_to item.book.title, book_path(item.book)
+            %h4
+              %small= truncate item.book.description, length: 100
+          .col-xs-6
+            .col-xs-6.text-right
+              %h6
+                %strong= number_to_currency item.price
+                %span.text-muted x
+            .col-xs-4
+              = form_for item do |f|
+                = f.number_field :quantity, class: 'form-control input-sm'
+            .col-xs-2
               = link_to order_item_path(item), method: :delete, id: 'book-remove',
-                data: { confirm: 'Are you sure?' } do
+                data: { confirm: 'Are you sure?' }, class: 'btn btn-link btn-xs' do
                 %span.glyphicon.glyphicon-remove
-        %tr
-          %td.subtotal{colspan: 4} Subtotal:
-          %td{colspan: 2, id: 'subtotal'}
-            %b= number_to_currency @order.total_price
+        %hr
+      .row
+        .text-center
+          .col-xs-9
+            %h6.text-right Added items?
+          .col-xs-3
+            = link_to 'Update cart', '#', class: 'btn btn-default btn-sm btn-block'
+    .panel-footer
+      .row.text-center
+        .col-xs-9#subtotal
+          %h4.text-right
+            Total
+            = number_to_currency @order.total_price
+        .col-xs-3
+          = link_to 'Checkout', order_steps_path, class: 'btn btn-success btn-block'
 - else
-  %p
-    Your shopping cart is empty.
+  %p Your shopping cart is empty.

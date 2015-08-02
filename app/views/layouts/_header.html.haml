@@ -1,8 +1,14 @@
-%header.navbar
+%header.navbar.navbar-inverse.navbar-fixed-top
   .container
     .navbar-header
+      = link_to '#', class:'navbar-toggle collapsed', data: { toggle: 'collapse', target: '#bs-navbar-collapse-1', 'aria-expanded': false } do
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
       = link_to 'Bookstore', root_path, class: 'navbar-brand logo'
-    %nav
+
+    .collapse.navbar-collapse#bs-navbar-collapse-1
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           - if can? :access, :rails_admin
@@ -11,10 +17,20 @@
             = link_to cart_path do
               %span.glyphicon.glyphicon-shopping-cart
               Cart (#{cart_counter})
-          %li= link_to current_user.email, edit_user_registration_path
-          %li= link_to 'Sign out', destroy_user_session_path, method: :delete
-          - if current_user.avatar?
-            %li= image_tag current_user.avatar.thumb, class: 'img-circle'
+          %li.dropdown
+            = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown', role: 'button', 'aria-haspopup': true, 'aria-expanded': false } do
+              = current_user.email
+              %span.caret
+            %ul.dropdown-menu
+              %li
+                = link_to edit_user_registration_path do
+                  Settings
+                  %span.gl-right.glyphicon.glyphicon-cog
+              %li.divider{role: 'separator'}
+              %li
+                = link_to destroy_user_session_path, method: :delete do
+                  Sign out
+                  %span.gl-right.glyphicon.glyphicon-log-out
         - else
           %li= link_to 'Sign in', new_user_session_path
           %li= link_to 'Sign up', new_user_registration_path

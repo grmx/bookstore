@@ -1,3 +1,24 @@
+body {
+  padding-top: 60px;
+}
+
 h1, h2 {
   text-align: center;
+}
+
+.order-summary {
+  text-align: right;
+  p {
+    text-transform: uppercase;
+  }
+}
+
+.avatar {
+  border: 2px solid #f5f5f5;
+  position: relative;
+  top: 5px;
+}
+
+.gl-right {
+  float: right;
 }

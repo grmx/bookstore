@@ -1,0 +1,13 @@
+- @books.in_groups_of(3, false) do |group|
+  .row
+    - group.each do |book|
+      .col-sm-4.book_item
+        %p
+          = link_to book_path(book) do
+            = image_tag book.cover.thumb, title: book.title, height: 200
+        %h4= link_to book.title, book_path(book)
+        %p= truncate book.description
+        %p.price= number_to_currency book.price
+
+%center
+  = paginate @books
