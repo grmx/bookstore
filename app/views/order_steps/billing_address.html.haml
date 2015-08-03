@@ -1,0 +1,20 @@
+%h2 Checkout
+
+= render 'steps'
+
+.row
+  .col-md-4
+    %h3 Billing Address
+    = render 'shared/error_messages', object: @billing_address
+    = form_for @billing_address, url: wizard_path, method: :patch do |bill|
+      = render 'address_form', addr: bill
+      = bill.submit 'Save and continue', class: 'btn btn-info'
+  .col-md-4
+  .col-md-4.order-summary
+    %h3 Order Summary
+    %p
+      Item total:
+      %b= number_to_currency @order.total_price
+    %p
+      Order total:
+      %b= number_to_currency @order.total_price

@@ -1,0 +1,26 @@
+%h2 Checkout
+
+= render 'steps'
+
+.row
+  .col-md-4
+    %h3 Delivery
+    = form_for @order, url: wizard_path, method: :patch do |f|
+      - @deliveries.each_with_index do |delivery, i|
+        %div.radio
+          %label
+            = f.radio_button :delivery_id, delivery.id
+            = "#{delivery.name} + #{number_to_currency delivery.price}"
+      = f.submit 'Save and continue', class: 'btn btn-info'
+  .col-md-4
+  .col-md-4.order-summary
+    %h3 Order Summary
+    %p
+      Item total:
+      %b= number_to_currency @order.total_price
+    %p
+      Shipping:
+      %b= number_to_currency @order.delivery.price
+    %p
+      Order total:
+      %b= number_to_currency @order.total_price + @order.delivery.price

@@ -1,0 +1,32 @@
+%h2 Checkout
+
+= render 'steps'
+
+.row
+  .col-md-4
+    %h3 Credit card
+    = render 'shared/error_messages', object: @credit_card
+    = form_for @credit_card, url: wizard_path, method: :patch do |f|
+      .form-group
+        = f.text_field :number, class: 'form-control', placeholder: 'Number'
+      .row.form-group
+        .col-sm-6
+          = f.select :exp_month, 01..12, { prompt: 'Exp. month' }, { class: 'form-control' }
+        .col-sm-6
+          = f.select :exp_year, Time.now.year..Time.now.year + 10, { prompt: 'Exp. year' }, { class: 'form-control' }
+      .form-group
+        = f.password_field :cvv, placeholder: 'Card Code', class: 'form-control'
+      .form-group
+        = f.submit 'Save and continue', class: 'btn btn-info'
+  .col-md-4
+  .col-md-4.order-summary
+    %h3 Order Summary
+    %p
+      Item total:
+      %b= number_to_currency @order.total_price
+    %p
+      Shipping:
+      %b= number_to_currency @order.delivery.price
+    %p
+      Order total:
+      %b= number_to_currency @order.total_price + @order.delivery.price

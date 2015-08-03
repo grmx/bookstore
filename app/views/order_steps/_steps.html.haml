@@ -1,0 +1,8 @@
+.row.form-group
+  .col-xs-12
+    %ul.nav.nav-pills.nav-justified.thumbnail.setup-panel
+      - wizard_steps.to_enum.with_index(1) do |order_step, index|
+        %li{ class: "#{order_step.eql?(step) ? 'active' : ''}"}
+          = link_to wizard_path(order_step) do
+            %h4.list-group-item-heading= "Step #{index}"
+            %p.list-group-item-text= order_step.to_s.humanize

@@ -10,7 +10,6 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder',     '~> 2.0'
 gem 'sdoc',         '~> 0.4.0', group: :doc
-
 gem 'haml-rails'
 gem 'rails_admin'
 gem 'devise'
@@ -19,7 +18,7 @@ gem 'cancancan'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'carrierwave'
-
+gem 'wicked'
 gem 'bootstrap-sass', '~> 3.3.5'
 
 group :development, :test do

@@ -1,0 +1,71 @@
+%h2 Checkout
+
+%h3= "Order #{@order.id}"
+
+.row
+  .col-md-3
+    %h4 Shipping Address
+    %p= @shipping_address.full_name
+    %p= @shipping_address.address
+    %p
+      = @shipping_address.city
+      = @shipping_address.zipcode
+    %p= @shipping_address.country
+    %p
+      Phone
+      = @shipping_address.phone
+  .col-md-3
+    %h4 Billing Address
+    %p= @billing_address.full_name
+    %p= @billing_address.address
+    %p
+      = @billing_address.city
+      = @billing_address.zipcode
+    %p= @billing_address.country
+    %p
+      Phone
+      = @billing_address.phone
+  .col-md-3
+    %h4 Shipments
+    %p= @order.delivery.name
+  .col-md-3
+    %h4 Payment Information
+    %p= current_user.credit_card.mask
+    %p= current_user.credit_card.date
+
+.row
+  %table.table
+    %thead
+      %tr
+        %th
+        %th Book
+        %th Price
+        %th Qty
+        %th Total
+    %tbody
+      - @order.order_items.each do |item|
+        %tr
+          %td
+            = link_to book_path(item.book) do
+              = image_tag item.book.cover.thumb
+          %td
+            %p.book-title= link_to item.book.title, book_path(item.book)
+            %p= truncate item.book.description, length: 100
+          %td= number_to_currency item.price
+          %td
+            %center= item.quantity
+          %td= number_to_currency(item.quantity * item.price)
+      %tr
+        %td.subtotal{colspan: 4}
+          %p Subtotal:
+          %p Shipping:
+          %p Order Total:
+        %td{colspan: 2}
+          %p
+            %b= number_to_currency @order.total_price
+          %p
+            %b= number_to_currency @order.delivery.price
+          %p
+            %b= number_to_currency @order.total_price + @order.delivery.price
+
+%p= link_to 'Go back to Store', root_path, class: 'btn btn-info'

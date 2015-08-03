@@ -26,12 +26,12 @@ RSpec.describe Order, type: :model do
   describe 'additional methods' do
     let(:book) { create(:book) }
     let(:order) { build(:order) }
+    let(:user) { create(:user) }
+    let!(:orders) { create_list(:order_with_random_state, 8, user: user) }
 
     before { order.add_book(book) }
 
     describe '.in_progress' do
-      let(:user) { create(:user) }
-      let(:orders) { create_list(:order_with_random_state, 8, user: user) }
 
       it 'doesn\'t return all orders'  do
         expect(user.orders.in_progress).to_not match_array(order)
@@ -40,6 +40,17 @@ RSpec.describe Order, type: :model do
       it 'returns orders in progress' do
         expect(user.orders.in_progress).
           to match_array(user.orders.where(state: 'in_progress'))
+      end
+    end
+
+    describe '.in_queue' do
+      it 'doesn\'t return all orders'  do
+        expect(user.orders.in_queue).to_not match_array(order)
+      end
+
+      it 'returns orders in queue' do
+        expect(user.orders.in_queue).
+          to match_array(user.orders.where(state: 'in_queue'))
       end
     end
 

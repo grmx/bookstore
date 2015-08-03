@@ -12,4 +12,12 @@ RSpec.describe Address, type: :model do
     it { should validate_length_of(:zipcode).is_equal_to(5) }
     it { should validate_length_of(:phone).is_at_least(5).is_at_most(12) }
   end
+
+  describe '#full_name' do
+    let(:address) { create(:address) }
+
+    it 'returns a full name' do
+      expect(address.full_name).to eq "#{address.first_name} #{address.last_name}"
+    end
+  end
 end

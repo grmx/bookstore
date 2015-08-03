@@ -12,6 +12,7 @@ class Order < ActiveRecord::Base
     inclusion: { in: %w(in_progress in_queue in_delivery delivered canceled) }
 
   scope :in_progress, -> { where(state: 'in_progress') }
+  scope :in_queue, -> { where(state: 'in_queue') }
 
   def add_book(book)
     current_item = self.order_items.find_or_initialize_by(book: book,
