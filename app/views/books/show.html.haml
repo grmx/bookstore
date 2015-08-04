@@ -6,7 +6,7 @@
 
 .row.single-book
   .col-md-4
-    = image_tag @book.cover, title: @book.title
+    = image_tag @book.cover, title: @book.title, class: 'img-responsive'
   .col-md-8
     .row.info
       .col-md-6.price= number_to_currency @book.price

@@ -1,6 +1,6 @@
 %h2 Your cart
 
-- unless @order.order_items.empty?
+- unless @order_items.empty?
   .panel.panel-info
     .panel-heading
       .panel-title
@@ -12,9 +12,9 @@
           .col-xs-6
             = link_to books_path, class: 'btn btn-primary btn-sm btn-block' do
               %span.glyphicon.glyphicon-share-alt
-                Continue shopping
+              Continue shopping
     .panel-body
-      - @order.order_items.each do |item|
+      - @order_items.each do |item|
         .row
           .col-xs-2
             = link_to item.book do
@@ -48,7 +48,7 @@
         .col-xs-9#subtotal
           %h4.text-right
             Total
-            = number_to_currency @order.total_price
+            = number_to_currency @order_items.first.order.total_price
         .col-xs-3
           = link_to 'Checkout', order_steps_path, class: 'btn btn-success btn-block'
 - else

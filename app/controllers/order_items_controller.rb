@@ -9,11 +9,23 @@ class OrderItemsController < ApplicationController
     order.calc_total_price
     if order.save
       flash[:success] = 'The book successfully added to the Cart.'
-      session[:order_id] = order.id
       redirect_to cart_path
     else
       flash.now[:danger] = 'We have some problems.'
       redirect_to :back
+    end
+  end
+
+  def update
+    order_item = OrderItem.find(params[:id])
+    order_item.update(quantity: params[:order_item][:quantity])
+    order_item.order.calc_total_price
+    if order_item.order.save
+      flash[:info] = "The Cart successfully updated."
+      redirect_to cart_path
+    else
+      flash.now[:warning] = "Sorry, this book is not present in stock."
+      redirect_to cart_path
     end
   end
 

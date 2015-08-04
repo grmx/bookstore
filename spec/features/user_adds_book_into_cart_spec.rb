@@ -17,6 +17,20 @@ feature 'Add book into cart', %q{
       text: 'The book successfully added to the Cart.'
   end
 
+  scenario 'Authorized user adds several books to the Cart' do
+    sign_in(user)
+    visit book_path(book)
+    click_on 'Add to Cart'
+
+    expect(page).to have_css '.alert',
+      text: 'The book successfully added to the Cart.'
+
+    fill_in 'order_item_quantity', with: '2'
+    click_on 'Update cart'
+
+    expect(page).to have_css '.alert', text: 'The Cart successfully updated.'
+  end
+
   scenario 'Authorized user adds the book to the Cart twice' do
     sign_in(user)
     visit book_path(book)
