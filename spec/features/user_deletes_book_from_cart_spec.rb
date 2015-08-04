@@ -28,7 +28,7 @@ feature 'Delete book from cart', %q{
     click_on 'book-remove', match: :first
 
     expect(current_path).to eq cart_path
-    expect(page).to_not have_content book.title
+    expect(page).to_not have_content other_book.title
     expect(page).to have_css '#subtotal', text: other_book.price
   end
 end
