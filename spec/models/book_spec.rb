@@ -15,4 +15,12 @@ RSpec.describe Book, type: :model do
     it { should belong_to(:author) }
     it { should belong_to(:category) }
   end
+
+  describe '.search(keyword)' do
+    let!(:book) { create(:book) }
+
+    it 'returns a book by keyword' do
+      expect(Book.search(book.title)).to match_array([book])
+    end
+  end
 end

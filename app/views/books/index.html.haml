@@ -1,3 +1,6 @@
-%h2 All books
+- if params[:search]
+  %h2 Search
+- else
+  %h2 All books
 
 = render 'books'

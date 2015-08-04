@@ -10,6 +10,10 @@
 
     .collapse.navbar-collapse#bs-navbar-collapse-1
       %ul.nav.navbar-nav.navbar-right
+        = form_tag books_path, method: :get, id: 'search-form', class: 'navbar-form navbar-left' do
+          .form-group
+            = text_field_tag :search, params[:search], placeholder: "Search books", class: 'form-control'
+          = submit_tag 'Search', class: 'btn btn-default'
         - if user_signed_in?
           - if can? :access, :rails_admin
             %li= link_to 'Admin', rails_admin.dashboard_path
@@ -34,3 +38,4 @@
         - else
           %li= link_to 'Sign in', new_user_session_path
           %li= link_to 'Sign up', new_user_registration_path
+
