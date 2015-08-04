@@ -25,7 +25,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'associations' do
-    it { should have_many(:identities) }
+    it { should have_many(:identities).dependent(:destroy) }
     it { should have_many(:orders).dependent(:destroy) }
     it { should have_one(:credit_card).dependent(:destroy) }
   end

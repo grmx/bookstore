@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :omniauthable, omniauth_providers: [:facebook]
 
   has_many :orders, dependent: :destroy
-  has_many :identities
+  has_many :identities, dependent: :destroy
 
   has_one :credit_card, dependent: :destroy
 
@@ -17,14 +17,14 @@ class User < ActiveRecord::Base
     identity = Identity.where(provider: auth.provider, uid: auth.uid.to_s).first
     return identity.user if identity
 
-    email = auth.info[:email]
+    email = auth.info.email
     user = User.find_by(email: email)
     if user
       user.create_identity(auth)
     else
       password = Devise.friendly_token[0, 20]
       user = User.create!(email: email, password: password,
-        password_confirmation: password)
+        password_confirmation: password, remote_avatar_url: auth.info.image)
       user.create_identity(auth)
     end
     user
