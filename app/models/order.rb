@@ -13,6 +13,8 @@ class Order < ActiveRecord::Base
 
   scope :in_progress, -> { where(state: 'in_progress') }
   scope :in_queue, -> { where(state: 'in_queue') }
+  scope :in_delivery, -> { where(state: 'in_delivery') }
+  scope :delivered, -> { where(state: 'delivered') }
 
   def add_book(book)
     current_item = self.order_items.find_or_initialize_by(book: book,

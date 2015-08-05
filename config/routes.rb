@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :categories,  only: :show
   resources :order_items, only: [:create, :update, :destroy]
   resources :order_steps, only: [:index, :show, :update]
+  resources :orders,      only: [:index, :show]
   resource  :cart, only: :show
   get 'about', to: 'pages#about'
   get 'help',  to: 'pages#help'

@@ -1,0 +1,5 @@
+%tr
+  %td= link_to order.id, order_path(order)
+  %td= order.completed_at
+  %td= number_to_currency order.total_price
+  %td= link_to 'View', order_path(order)

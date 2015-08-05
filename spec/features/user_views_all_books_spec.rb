@@ -14,7 +14,6 @@ feature 'View all books', %q{
     books.each do |book|
       expect(page).to have_css 'a', text: book.title
       expect(page).to have_content book.price
-      expect(page).to have_content book.title
     end
   end
 end

@@ -1,0 +1,82 @@
+%h2 Orders
+
+- if @in_progress
+  .page-header
+    %h3 In Progress
+
+  .row
+    %table.table
+      %thead
+        %tr
+          %th
+          %th Book
+          %th Price
+          %th Qty
+          %th Total
+      %tbody
+        - @in_progress.order_items.each do |item|
+          %tr
+            %td
+              = link_to book_path(item.book) do
+                = image_tag item.book.cover.thumb
+            %td
+              %p.book-title= link_to item.book.title, book_path(item.book)
+              %p= truncate item.book.description, length: 100
+            %td= number_to_currency item.price
+            %td
+              %center= item.quantity
+            %td= number_to_currency(item.quantity * item.price)
+        %tr
+          %td.subtotal{colspan: 4}
+            %p Subtotal:
+          %td{colspan: 2}
+            %p
+              %b= number_to_currency @in_progress.total_price
+
+  = link_to 'Go to Cart', cart_path, class: 'btn btn-info'
+
+- unless @in_queue.empty?
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Waiting for Processing
+    %table.table
+      %thead
+        %tr
+          %th Number
+          %th Completed at
+          %th Total
+          %th
+      %tbody
+        - @in_queue.each do |order|
+          = render 'order_row', order: order
+
+- unless @in_delivery.empty?
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title In Delivery
+    %table.table
+      %thead
+        %tr
+          %th Number
+          %th Completed at
+          %th Total
+          %th
+      %tbody
+        - @in_delivery.each do |order|
+          = render 'order_row', order: order
+
+- unless @delivered.empty?
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Delivered
+    %table.table
+      %thead
+        %tr
+          %th Number
+          %th Completed at
+          %th Total
+          %th
+      %tbody
+        - @delivered.each do |order|
+          = render 'order_row', order: order
+

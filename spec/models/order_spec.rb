@@ -34,7 +34,7 @@ RSpec.describe Order, type: :model do
     describe '.in_progress' do
 
       it 'doesn\'t return all orders'  do
-        expect(user.orders.in_progress).to_not match_array(order)
+        expect(user.orders.in_progress).to_not match_array(orders)
       end
 
       it 'returns orders in progress' do
@@ -45,12 +45,34 @@ RSpec.describe Order, type: :model do
 
     describe '.in_queue' do
       it 'doesn\'t return all orders'  do
-        expect(user.orders.in_queue).to_not match_array(order)
+        expect(user.orders.in_queue).to_not match_array(orders)
       end
 
       it 'returns orders in queue' do
         expect(user.orders.in_queue).
           to match_array(user.orders.where(state: 'in_queue'))
+      end
+    end
+
+    describe '.in_delivery' do
+      it 'doesn\'t return all orders'  do
+        expect(user.orders.in_delivery).to_not match_array(orders)
+      end
+
+      it 'returns orders in delivery' do
+        expect(user.orders.in_delivery).
+          to match_array(user.orders.where(state: 'in_delivery'))
+      end
+    end
+
+    describe '.delivered' do
+      it 'doesn\'t return all orders'  do
+        expect(user.orders.delivered).to_not match_array(orders)
+      end
+
+      it 'returns delivered order' do
+        expect(user.orders.delivered).
+          to match_array(user.orders.where(state: 'delivered'))
       end
     end
 
