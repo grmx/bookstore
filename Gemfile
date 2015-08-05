@@ -22,6 +22,7 @@ gem 'mini_magick'
 gem 'carrierwave'
 gem 'wicked'
 gem 'bootstrap-sass', '~> 3.3.5'
+gem 'puma'
 
 group :development, :test do
   gem 'byebug'
@@ -38,6 +39,11 @@ group :development do
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'better_errors'
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
 end
 
 group :test do
