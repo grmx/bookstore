@@ -11,7 +11,9 @@ gem 'turbolinks'
 gem 'jbuilder',     '~> 2.0'
 gem 'sdoc',         '~> 0.4.0', group: :doc
 gem 'haml-rails'
+gem 'aasm'
 gem 'rails_admin'
+gem 'rails_admin_aasm'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'cancancan'
@@ -35,6 +37,7 @@ end
 group :development do
   gem 'pry-rails'
   gem 'pry-doc'
+  gem 'better_errors'
 end
 
 group :test do

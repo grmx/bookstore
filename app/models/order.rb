@@ -1,4 +1,6 @@
 class Order < ActiveRecord::Base
+  include AASM
+
   belongs_to :user
   belongs_to :billing_address, class_name: 'Address'
   belongs_to :shipping_address, class_name: 'Address'
@@ -11,10 +13,37 @@ class Order < ActiveRecord::Base
   validates :state,
     inclusion: { in: %w(in_progress in_queue in_delivery delivered canceled) }
 
-  scope :in_progress, -> { where(state: 'in_progress') }
-  scope :in_queue, -> { where(state: 'in_queue') }
-  scope :in_delivery, -> { where(state: 'in_delivery') }
-  scope :delivered, -> { where(state: 'delivered') }
+  rails_admin do
+    list do
+      field :id
+      field :total_price
+      field :state, :state
+      field :user
+      field :billing_address
+      field :shipping_address
+      field :delivery
+    end
+  end
+
+  aasm column: 'state' do
+    state :in_progress, initial: true
+    state :in_queue
+    state :in_delivery
+    state :delivered
+    state :canceled
+
+    event :submit do
+      transitions from: :in_progress, to: :in_queue
+    end
+
+    event :ship do
+      transitions from: :in_queue, to: :in_delivery
+    end
+
+    event :complete do
+      transitions from: :in_delivery, to: :delivered
+    end
+  end
 
   def add_book(book)
     current_item = self.order_items.find_or_initialize_by(book: book,
