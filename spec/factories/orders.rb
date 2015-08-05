@@ -3,6 +3,7 @@ FactoryGirl.define do
     total_price "9.99"
     state "in_progress"
     user
+    delivery
     completed_at Time.now
 
     factory :order_with_items do

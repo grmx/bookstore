@@ -12,6 +12,7 @@ feature 'View all orders', %q{
   given!(:in_queue) { create(:order, state: 'in_queue', user: user) }
   given!(:in_delivery) { create(:order, state: 'in_delivery', user: user) }
   given!(:delivered) { create(:order, state: 'delivered', user: user) }
+  given(:other_order) { create(:order) }
 
   scenario 'Authorized user views all orders' do
     sign_in(user)
@@ -42,8 +43,39 @@ feature 'View all orders', %q{
     expect(page).to have_content delivered.total_price
   end
 
+  scenario 'Authorized user views a single order page' do
+    sign_in(user)
+    visit order_path(delivered)
+
+    expect(page).to have_css 'h2', text: "Order #{delivered.id}"
+    delivered.order_items.each do |oi|
+      expect(page).to have_css 'a', text: oi.book.title
+      expect(page).to have_content oi.book.price
+    end
+    expect(page).to have_content delivered.total_price
+    expect(page).to have_content delivered.total_price + delivered.delivery.price
+  end
+
+  xscenario 'User tries to view foreign order' do
+    sign_in(user)
+    visit order_path(other)
+
+    expect(page).to have_css '.alert',
+      text: 'You are not authorized to access this page.'
+    expect(current_path).to eq root_path
+  end
+
   scenario 'Visitor tries to view all orders' do
     visit orders_path
+
+    expect(page).to have_css '.alert',
+      text: 'You need to sign in or sign up before continuing.'
+    expect(page).to have_content 'Sign in'
+  end
+
+  scenario 'Visitor tries to view a single order' do
+    visit order_path(delivered)
+
     expect(page).to have_css '.alert',
       text: 'You need to sign in or sign up before continuing.'
     expect(page).to have_content 'Sign in'

@@ -1,0 +1,38 @@
+%h2= "Order #{@order.id}"
+
+.row
+  %table.table
+    %thead
+      %tr
+        %th
+        %th Book
+        %th Price
+        %th Qty
+        %th Total
+    %tbody
+      - @order.order_items.each do |item|
+        %tr
+          %td
+            = link_to book_path(item.book) do
+              = image_tag item.book.cover.thumb
+          %td
+            %p.book-title= link_to item.book.title, book_path(item.book)
+            %p= truncate item.book.description, length: 100
+          %td= number_to_currency item.price
+          %td
+            %center= item.quantity
+          %td= number_to_currency(item.quantity * item.price)
+      %tr
+        %td.subtotal{colspan: 4}
+          %p Subtotal:
+          %p Shipping:
+          %p Order Total:
+        %td{colspan: 2}
+          %p
+            %b= number_to_currency @order.total_price
+          %p
+            %b= number_to_currency @order.delivery.price
+          %p
+            %b= number_to_currency @order.total_price + @order.delivery.price
+
+%p= link_to 'Go back to Orders', orders_path

@@ -8,4 +8,8 @@ class OrdersController < ApplicationController
     @in_delivery = orders.in_delivery
     @delivered = orders.delivered
   end
+
+  def show
+    @order = current_user.orders.find(params[:id])
+  end
 end
