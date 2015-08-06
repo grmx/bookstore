@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "books/show", type: :view do
+  let(:user) { create(:user) }
   let(:book) { create(:book) }
-
+  let(:ratings) { create_list(:rating, 2, book: book, user: user)}
   before do
     assign(:book, book)
+    assign(:ratings, ratings)
     render
   end
 

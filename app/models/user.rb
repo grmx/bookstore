@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          :omniauthable, omniauth_providers: [:facebook]
 
   has_many :orders, dependent: :destroy
+  has_many :ratings, dependent: :destroy
   has_many :identities, dependent: :destroy
 
   has_one :credit_card, dependent: :destroy
