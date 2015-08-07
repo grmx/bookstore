@@ -2,11 +2,18 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :read, :all                   # allow everyone to read everything
-    if user && user.is_admin?
-      can :access, :rails_admin       # only allow admin users to access Rails Admin
-      can :dashboard                  # allow access to dashboard
-      can :manage, :all               # allow superadmins to do anything
+    if user
+      if user.is_admin?
+        can :access, :rails_admin
+        can :dashboard
+        can :manage, :all
+      else
+        can :read, :all
+        can :create, Rating
+        can :update, Rating, user: user
+      end
+    else
+      can :read, :all
     end
   end
 end

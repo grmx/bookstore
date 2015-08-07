@@ -2,10 +2,11 @@ require 'cancan/matchers'
 require 'rails_helper'
 
 RSpec.describe Ability, type: :model do
+  subject { ability }
+  let(:ability){ Ability.new(user) }
+
   describe 'abilities of signed in user' do
-    subject { ability }
     let(:user){ create(:user) }
-    let(:ability){ Ability.new(user) }
 
     context 'for books' do
       let(:book){ create(:book) }
@@ -45,12 +46,19 @@ RSpec.describe Ability, type: :model do
       it { expect(ability).not_to be_able_to(:destroy, user) }
     end
 
+    context 'for ratings' do
+      let(:rating) { create(:rating, user: user) }
+
+      it { expect(ability).to be_able_to(:read, rating) }
+      it { expect(ability).to be_able_to(:create, Rating) }
+      it { expect(ability).to be_able_to(:update, rating) }
+
+      it { expect(ability).not_to be_able_to(:destroy, rating) }
+    end
   end
 
   describe 'abilities of signed in administratior' do
-    subject { ability }
-    let(:admin){ create(:admin) }
-    let(:ability){ Ability.new(admin) }
+    let(:user){ create(:admin) }
 
     context 'for books' do
       let(:book){ create(:book) }
@@ -80,12 +88,12 @@ RSpec.describe Ability, type: :model do
     end
 
     context 'for users' do
-      let(:user){ create(:user) }
+      let(:customer){ create(:user) }
 
-      it { expect(ability).to be_able_to(:read, user) }
+      it { expect(ability).to be_able_to(:read, customer) }
       it { expect(ability).to be_able_to(:create, User) }
-      it { expect(ability).to be_able_to(:update, user) }
-      it { expect(ability).to be_able_to(:destroy, user) }
+      it { expect(ability).to be_able_to(:update, customer) }
+      it { expect(ability).to be_able_to(:destroy, customer) }
     end
   end
 end

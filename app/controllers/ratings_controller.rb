@@ -5,11 +5,11 @@ class RatingsController < ApplicationController
     rating.user = current_user
     if rating.save
       flash[:success] = "Thanks! Your review is awaiting moderation."
-      redirect_to :back
     else
       flash[:danger] = "Review can't be blank."
-      redirect_to book
     end
+    redirect_to book_url(book)
+    authorize! :create, rating
   end
 
   private
