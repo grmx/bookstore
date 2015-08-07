@@ -17,7 +17,7 @@ feature 'User review', %q{
     click_on 'Add review'
 
     expect(current_path).to eq book_path(book)
-    expect(page).to have_content review.review
+    expect(page).not_to have_content review.review
     expect(page).to have_css '.alert', 
       text: 'Thanks! Your review is awaiting moderation'
   end
