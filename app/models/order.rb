@@ -23,6 +23,9 @@ class Order < ActiveRecord::Base
       field :shipping_address
       field :delivery
     end
+    state({
+      events: { submit: 'btn-primary', ship: 'btn-info', complete: 'btn-success'}
+    })
   end
 
   aasm column: 'state' do
