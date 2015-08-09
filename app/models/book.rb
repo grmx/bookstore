@@ -6,7 +6,7 @@ class Book < ActiveRecord::Base
 
   has_many :ratings, dependent: :destroy
 
-  validates :title, :price, :stock, presence: true
+  validates :title, :price, :stock, :author, :category, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }
 
   scope :search, ->(keyword){ where('keywords LIKE ?', "%#{keyword.downcase}%") }
