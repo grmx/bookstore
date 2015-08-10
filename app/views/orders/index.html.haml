@@ -33,7 +33,7 @@
             %p
               %b= number_to_currency @in_progress.total_price
 
-  = link_to 'Go to Cart', cart_path, class: 'btn btn-info'
+  %p= link_to 'Go to Cart', cart_path, class: 'btn btn-info'
 
 - unless @in_queue.empty?
   .panel.panel-default

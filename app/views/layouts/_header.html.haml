@@ -15,8 +15,6 @@
             = text_field_tag :search, params[:search], placeholder: "Search books", class: 'form-control'
           = submit_tag 'Search', class: 'btn btn-default'
         - if user_signed_in?
-          - if can? :access, :rails_admin
-            %li= link_to 'Admin', rails_admin.dashboard_path
           %li
             = link_to cart_path do
               %span.glyphicon.glyphicon-shopping-cart
@@ -26,6 +24,11 @@
               = current_user.email
               %span.caret
             %ul.dropdown-menu
+              - if can? :access, :rails_admin
+                %li
+                  = link_to rails_admin.dashboard_path do
+                    Admin panel
+                    %span.gl-right.glyphicon.glyphicon-wrench
               %li
                 = link_to orders_path do
                   My orders
