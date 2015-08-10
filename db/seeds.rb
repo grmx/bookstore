@@ -73,7 +73,7 @@ Book.create!([{
 },
 {
   title: "All the Light We Cannot See",
-  description: "Alfred Hitchcock was a strange child. Fat, lonely, burning with fear and ambition, his childhood was an isolated one, scented with fish from his father's shop. Afraid to leave his bedroom, he would plan great voyages, using railway timetables to plot an exact imaginary route across Europe. So how did this fearful figure become the one of the most respected film directors of the twentieth century? As an adult, Hitch rigorously controlled the press' portrait of himself, drawing certain carefully selected childhood anecdotes into full focus and blurring all others out.",
+  description: "WINNER OF THE PULITZER PRIZE From the highly acclaimed, multiple award-winning Anthony Doerr, the beautiful, stunningly ambitious instant \"New York Times\" bestseller about a blind French girl and a German boy whose paths collide in occupied France as both try to survive the devastation of World War II.",
   price: 13.08,
   stock: 6,
   category_id: 12,
