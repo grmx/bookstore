@@ -23,6 +23,8 @@ gem 'carrierwave'
 gem 'wicked'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'puma'
+gem 'countries'
+gem 'country_select', github: 'stefanpenner/country_select'
 
 group :development, :test do
   gem 'byebug'

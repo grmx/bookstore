@@ -7,7 +7,7 @@
 .form-group
   = addr.text_field :city, class: 'form-control', placeholder: 'City'
 .form-group
-  = addr.text_field :country, class: 'form-control', placeholder: 'Country'
+  = addr.country_select :country, { prompt: 'Select country' }, { class: 'form-control' }
 .form-group
   = addr.text_field :zipcode, class: 'form-control', placeholder: 'Zipcode'
 .form-group

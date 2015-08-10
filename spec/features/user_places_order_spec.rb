@@ -28,7 +28,7 @@ feature 'User paces order', %q{
     fill_in 'Last name',      with: address.last_name
     fill_in 'Street address', with: address.address
     fill_in 'City',           with: address.city
-    fill_in 'Country',        with: address.country
+    select  address.country,  from: 'address_country'
     fill_in 'Zipcode',        with: address.zipcode
     fill_in 'Phone',          with: address.phone
     click_on 'Save and continue'
@@ -41,7 +41,7 @@ feature 'User paces order', %q{
     fill_in 'Last name',      with: address.last_name
     fill_in 'Street address', with: address.address
     fill_in 'City',           with: address.city
-    fill_in 'Country',        with: address.country
+    select  address.country,  from: 'address_country'
     fill_in 'Zipcode',        with: address.zipcode
     fill_in 'Phone',          with: address.phone
     click_on 'Save and continue'
