@@ -5,7 +5,6 @@ class OrderItemsController < ApplicationController
     book = Book.find(params[:book_id])
     order = current_order
     order.add_book(book)
-    order.completed_at = Time.now
     order.calc_total_price
     if order.save
       flash[:success] = 'The book successfully added to the Cart.'
@@ -18,6 +17,7 @@ class OrderItemsController < ApplicationController
 
   def update
     order_item = OrderItem.find(params[:id])
+    authorize! :update, order_item
     order_item.update(quantity: params[:order_item][:quantity])
     order_item.order.calc_total_price
     if order_item.order.save
@@ -31,6 +31,7 @@ class OrderItemsController < ApplicationController
 
   def destroy
     order_item = OrderItem.find(params[:id])
+    authorize! :delete, order_item
     order_item.destroy
     order = order_item.order
     order.calc_total_price

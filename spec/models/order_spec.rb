@@ -4,7 +4,6 @@ RSpec.describe Order, type: :model do
   describe 'validation' do
     it { should validate_presence_of(:total_price) }
     it { should validate_presence_of(:state) }
-    it { should validate_presence_of(:completed_at) }
     it do
       should validate_numericality_of(:total_price).
         is_greater_than_or_equal_to(0.01)

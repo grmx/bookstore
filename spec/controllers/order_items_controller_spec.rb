@@ -5,6 +5,13 @@ RSpec.describe OrderItemsController, type: :controller do
 
   sign_in_user
 
+  before do
+    @ability = Object.new
+    @ability.extend(CanCan::Ability)
+    @controller.stub(:current_ability).and_return(@ability)
+    @ability.can :manage, OrderItem, user: @user
+  end
+
   describe 'POST #create' do
 
     context 'with valid attributes' do
@@ -33,7 +40,8 @@ RSpec.describe OrderItemsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:order_item) { create(:order_item) }
+    let(:order) { create(:order, user: @user) }
+    let!(:order_item) { create(:order_item, order: order) }
 
     it 'deletes an order item' do
       expect { delete :destroy, id: order_item }.
