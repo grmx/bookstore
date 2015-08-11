@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
 
   has_many :order_items, dependent: :destroy
 
-  validates :total_price, :state, :completed_at, presence: true
+  validates :total_price, :state, presence: true
   validates :total_price, numericality: { greater_than_or_equal_to: 0.01 }
   validates :state,
     inclusion: { in: %w(in_progress in_queue in_delivery delivered canceled) }
@@ -22,9 +22,11 @@ class Order < ActiveRecord::Base
       field :billing_address
       field :shipping_address
       field :delivery
+      field :completed_at
     end
     state({
-      events: { submit: 'btn-primary', ship: 'btn-info', complete: 'btn-success'}
+      events: { submit: 'btn-primary', ship: 'btn-info', complete: 'btn-success', 
+        cancel: 'btn-danger' }
     })
   end
 
@@ -35,16 +37,20 @@ class Order < ActiveRecord::Base
     state :delivered
     state :canceled
 
-    event :submit do
+    event :submit, before: :complete_order do
       transitions from: :in_progress, to: :in_queue
     end
 
-    event :ship do
+    event :ship, before: :complete_order  do
       transitions from: :in_queue, to: :in_delivery
     end
 
-    event :complete do
+    event :complete, before: :complete_order  do
       transitions from: :in_delivery, to: :delivered
+    end
+
+    event :cancel, before: :complete_order  do
+      transitions from: [:in_progress, :in_queue], to: :canceled
     end
   end
 
@@ -63,5 +69,11 @@ class Order < ActiveRecord::Base
         nil
       end
     end.sum
+  end
+
+  private
+
+  def complete_order
+    self.completed_at = Time.current
   end
 end
