@@ -8,12 +8,14 @@ class Ability
         can :dashboard
         can :manage, :all
       else
-        can :read, :all
+        can :read,   [Book, Category, Author, Rating, User]
+        can :manage, Order,     user: user
+        can :manage, OrderItem, user: user
         can :create, Rating
-        can :update, Rating, user: user
+        can :update, Rating,    user: user
       end
     else
-      can :read, :all
+      can :read, [Book, Category, Author, Rating]
     end
   end
 end

@@ -17,5 +17,6 @@ RSpec.describe OrderItem, type: :model do
   describe 'associations' do
     it { should belong_to(:book) }
     it { should belong_to(:order) }
+    it { should have_one(:user).through(:order) }
   end
 end
