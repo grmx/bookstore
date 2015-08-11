@@ -7,5 +7,11 @@ FactoryGirl.define do
     category
     author
     cover { Rack::Test::UploadedFile.new("#{Rails.root}/spec/support/uploads/cover.jpg", 'image/jpeg') }
+
+    factory :book_with_reviews do
+      after(:create) do |book|
+        create_list(:rating, 3, book: book)
+      end
+    end
   end
 end

@@ -1,5 +1,6 @@
 class RatingsController < ApplicationController
   def create
+    authorize! :create, Rating
     book = Book.find(params[:book_id])
     rating = book.ratings.create(rating_params)
     rating.user = current_user
@@ -9,7 +10,6 @@ class RatingsController < ApplicationController
       flash[:danger] = "Review can't be blank."
     end
     redirect_to book_url(book)
-    authorize! :create, rating
   end
 
   private

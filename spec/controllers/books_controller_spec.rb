@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BooksController, type: :controller do
-  let(:book) { create(:book) }
+  let(:book) { create(:book_with_reviews) }
 
   describe 'GET #index' do
     before { get :index }
@@ -26,6 +26,10 @@ RSpec.describe BooksController, type: :controller do
 
     it 'assigns the requested book to @book' do
       expect(assigns(:book)).to eq book
+    end
+
+    it 'assigns the book reviews to @ratings' do
+      expect(assigns(:ratings)).to eq book.ratings.approved
     end
 
     it 'renders show view' do
