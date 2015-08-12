@@ -1,0 +1,9 @@
+.media
+  .media-left.media-top
+    = link_to '#' do
+      = image_tag rating.user.avatar.thumb, class: 'media-object'
+  .media-body
+    %p.pull-right
+      %small= "#{time_ago_in_words rating.created_at} ago"
+    %h4.media-heading= "Rating: #{rating.rating}"
+    = rating.review

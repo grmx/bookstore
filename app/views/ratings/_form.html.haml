@@ -1,0 +1,13 @@
+%hr
+%h3 Add review
+= form_for @rating, url: book_ratings_path(@book) do |f|
+  .form-group
+    - (1..10).each do |value|
+      %label.radio-inline
+        = f.radio_button :rating, value, checked: true
+        = value
+  .form-group
+    = f.label :review
+    = f.text_area :review, rows: 3, class: 'form-control'
+  .form-group
+    = f.submit 'Add review', class: 'btn btn-default'
