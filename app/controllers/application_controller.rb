@@ -10,11 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_order
-    if current_user.orders.in_progress.present?
-      current_user.orders.in_progress.last
-    else
-      current_user.orders.build
-    end
+    current_user.orders.in_progress.first_or_create
   end
 
   protected
