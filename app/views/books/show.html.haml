@@ -10,8 +10,26 @@
   .col-md-8
     .row.info
       .col-md-6.price= number_to_currency @book.price
-      .col-md-6.add-to-cart= button_to 'Add to Cart',
-        order_items_path(book_id: @book), class: 'btn btn-sm btn-success'
+      - if user_signed_in?
+        - unless current_user.book_in_wishlist?(@book)
+          .col-md-3
+            = button_to wishlist_book_path(@book), method: :post, class: 'btn btn-sm btn-info' do
+              %span.glyphicon.glyphicon-plus
+              Wishlist
+        - else
+          .col-md-3
+            = button_to wishlist_book_path(@book), method: :delete, class: 'btn btn-sm btn-info' do
+              %span.glyphicon.glyphicon-minus
+              Wishlist
+        .col-md-3.add-to-cart
+          = button_to order_items_path(book_id: @book), class: 'btn btn-sm btn-success' do
+            %span.glyphicon.glyphicon-shopping-cart
+            Add to Cart
+      - else
+        .col-md-6.add-to-cart
+          = button_to order_items_path(book_id: @book), class: 'btn btn-sm btn-success' do
+            %span.glyphicon.glyphicon-shopping-cart
+            Add to Cart
     .row
       .col-md-12
         = @book.description

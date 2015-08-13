@@ -10,9 +10,22 @@ class User < ActiveRecord::Base
   has_many :identities, dependent: :destroy
 
   has_one :credit_card, dependent: :destroy
+  has_and_belongs_to_many :books
 
   validates :email,
     format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+
+  def add_to_wishlist(book)
+    self.books << book
+  end
+
+  def remove_from_wishlist(book)
+    self.books.delete book
+  end
+
+  def book_in_wishlist?(book)
+    self.books.include?(book)
+  end
 
   def self.find_for_oauth(auth)
     identity = Identity.where(provider: auth.provider, uid: auth.uid.to_s).first

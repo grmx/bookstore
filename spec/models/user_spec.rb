@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let(:user) { create(:user) }
+  let(:first_book) { create(:book) }
+  let(:second_book) { create(:book) }
+
   describe 'validation' do
     it { should validate_presence_of(:email) }
     it { should validate_presence_of(:password) }
@@ -29,6 +33,42 @@ RSpec.describe User, type: :model do
     it { should have_many(:orders).dependent(:destroy) }
     it { should have_many(:ratings).dependent(:destroy) }
     it { should have_one(:credit_card).dependent(:destroy) }
+    it { should have_and_belong_to_many(:books) }
+  end
+
+  describe '#add_to_wishlist' do
+    before do
+      user.add_to_wishlist(first_book)
+      user.add_to_wishlist(second_book)
+    end
+
+    it 'adds a book to the wishlist' do
+      expect(user.books).to match_array [first_book, second_book]
+    end
+
+    it 'doesn\'t add same book to the wishlist twice' do
+      expect { user.add_to_wishlist(first_book) }.
+        to raise_error ActiveRecord::RecordNotUnique
+    end
+  end
+
+  describe '#remove_from_wishlist' do
+    before do
+      user.add_to_wishlist(first_book)
+      user.add_to_wishlist(second_book)
+    end
+
+    it 'removes a book to the wishlist' do
+      user.remove_from_wishlist(first_book)
+      expect(user.books).to match_array [second_book]
+    end
+  end
+
+  describe '#book_in_wishlist?' do
+    it 'returns true if a book in the wishlist' do
+      user.add_to_wishlist(first_book)
+      expect(user.book_in_wishlist?(first_book)).to be_truthy
+    end
   end
 
   describe '.find_for_oauth' do

@@ -27,11 +27,15 @@
               - if can? :access, :rails_admin
                 %li
                   = link_to rails_admin.dashboard_path do
-                    Admin panel
+                    Admin Panel
                     %span.gl-right.glyphicon.glyphicon-wrench
               %li
+                = link_to wishlist_books_path do
+                  My Wishlist
+                  %span.gl-right.glyphicon.glyphicon-heart
+              %li
                 = link_to orders_path do
-                  My orders
+                  My Orders
                   %span.gl-right.glyphicon.glyphicon-list-alt
               %li
                 = link_to edit_user_registration_path do

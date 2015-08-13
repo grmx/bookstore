@@ -4,6 +4,7 @@ RSpec.describe "books/show", type: :view do
   let(:user) { create(:user) }
   let(:book) { create(:book) }
   let(:ratings) { create_list(:rating, 2, book: book, user: user)}
+
   before do
     assign(:book, book)
     assign(:ratings, ratings)
@@ -30,7 +31,11 @@ RSpec.describe "books/show", type: :view do
     expect(rendered).to have_content book.author.full_name
   end
 
-  it 'has a "Add to Cart" button' do
+  it 'has an "Add to Cart" button' do
     expect(rendered).to have_button 'Add to Cart'
+  end
+
+  xit 'has a "Wishlist" button' do
+    expect(rendered).to have_button 'Wishlist'
   end
 end

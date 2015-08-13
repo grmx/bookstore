@@ -17,6 +17,7 @@ RSpec.describe Book, type: :model do
     it { should belong_to(:author) }
     it { should belong_to(:category) }
     it { should have_many(:ratings).dependent(:destroy) }
+    it { should have_and_belong_to_many(:users) }
   end
 
   describe '.search(keyword)' do

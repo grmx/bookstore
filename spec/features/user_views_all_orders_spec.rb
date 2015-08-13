@@ -17,7 +17,7 @@ feature 'View all orders', %q{
   scenario 'Authorized user views all orders' do
     sign_in(user)
     visit root_path
-    click_on 'My orders'
+    click_on 'My Orders'
 
     expect(current_path).to eq orders_path
     expect(page).to have_css 'h2', text: 'Orders'
