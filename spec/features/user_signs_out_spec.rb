@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'User sign out', %q{
+feature 'User signs out', %q{
   As a signed in user
   I want to be able to sign out
 } do

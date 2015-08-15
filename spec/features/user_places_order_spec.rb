@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'User paces order', %q{
+feature 'User places order', %q{
   In order to buy books from the shopping cart
   As a user
   I want to be able to place an order with books
@@ -12,7 +12,7 @@ feature 'User paces order', %q{
   given(:cc) { create(:credit_card) }
   given!(:deliveries) { create_list(:delivery, 3) }
 
-  before do
+  background do
     sign_in(user)
     visit book_path(book)
     click_on 'Add to Cart'

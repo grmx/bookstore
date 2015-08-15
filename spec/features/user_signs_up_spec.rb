@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'User sign up', %q{
+feature 'User signs up', %q{
   In order to be able to use the Bookstore service
   As a visitor
   I want to be able to sign up

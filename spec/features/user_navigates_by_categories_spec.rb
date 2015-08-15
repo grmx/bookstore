@@ -6,7 +6,7 @@ feature 'Navigate by categories', %q{
   I want to be able to choice the book category
 } do
 
-  let!(:categories) { create_list(:category_with_books, 2) }
+  given!(:categories) { create_list(:category_with_books, 2) }
 
   scenario 'Visitor searches books by categories' do
     visit root_path

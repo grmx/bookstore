@@ -6,7 +6,7 @@ feature 'Navigate by pages', %q{
   I want to be able to navigate by pages
 } do
 
-  let!(:category) { create(:category_with_books, books_count: 10) }
+  given!(:category) { create(:category_with_books, books_count: 10) }
 
   scenario 'Visitor navigates by pages (all books)' do
     visit books_path

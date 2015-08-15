@@ -6,8 +6,8 @@ feature 'Upload cover', %q{
   I want to be able to attach an image
 } do
 
-  let!(:admin) { create(:admin) }
-  let!(:book) { create(:book) }
+  given!(:admin) { create(:admin) }
+  given!(:book) { create(:book) }
 
   scenario 'Administrator adds a book cover' do
     sign_in(admin)
