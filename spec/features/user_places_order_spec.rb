@@ -20,7 +20,7 @@ feature 'User paces order', %q{
   end
 
   scenario 'A user fills in a checkout form' do
-    expect(page).to have_css 'h4', text: 'Step 1'
+    expect(page).to have_css 'a h4', text: 'Step 1'
     expect(page).to have_css 'h3', text: 'Billing Address'
     expect(page).to have_content book.price
 
@@ -33,7 +33,7 @@ feature 'User paces order', %q{
     fill_in 'Phone',          with: address.phone
     click_on 'Save and continue'
 
-    expect(page).to have_css 'h4', text: 'Step 2'
+    expect(page).to have_css 'a h4', text: 'Step 2'
     expect(page).to have_css 'h3', text: 'Shipping Address'
     expect(page).to have_content book.price
 
@@ -46,13 +46,13 @@ feature 'User paces order', %q{
     fill_in 'Phone',          with: address.phone
     click_on 'Save and continue'
 
-    expect(page).to have_css 'h4', text: 'Step 3'
+    expect(page).to have_css 'a h4', text: 'Step 3'
     expect(page).to have_css 'h3', text: 'Delivery'
     expect(page).to have_content book.price + deliveries.first.price
 
     click_on 'Save and continue'
 
-    expect(page).to have_css 'h4', text: 'Step 4'
+    expect(page).to have_css 'a h4', text: 'Step 4'
     expect(page).to have_css 'h3', text: 'Credit card'
     expect(page).to have_content book.price + deliveries.first.price
 
@@ -62,7 +62,7 @@ feature 'User paces order', %q{
     fill_in 'Card Code', with: cc.cvv
     click_on 'Save and continue'
 
-    expect(page).to have_css 'h4', text: 'Step 5'
+    expect(page).to have_css 'a h4', text: 'Step 5'
     expect(page).to have_css 'h3', text: 'Confirm'
     expect(page).to have_content book.title
     expect(page).to have_content book.price
@@ -70,7 +70,7 @@ feature 'User paces order', %q{
 
     click_on 'Place Order'
 
-    expect(page).to_not have_css 'h4', text: 'Step 6'
+    expect(page).to_not have_css 'a h4', text: 'Step 6'
     expect(page).to_not have_css 'h3', text: 'Complete'
     expect(page).to have_content book.title
     expect(page).to have_content book.price

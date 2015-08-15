@@ -31,8 +31,8 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   # Extend Utilities
-  config.include FeaturesSpecHelper, type: :feature
-  config.extend ControllersSpecHelper, type: :controller
+  config.include FeaturesSpecHelper,    type: :feature
+  config.extend  ControllersSpecHelper, type: :controller
 
   # Devise Helpers
   config.include Devise::TestHelpers, type: :controller

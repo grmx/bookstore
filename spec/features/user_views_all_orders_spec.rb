@@ -56,9 +56,9 @@ feature 'View all orders', %q{
     expect(page).to have_content delivered.total_price + delivered.delivery.price
   end
 
-  xscenario 'User tries to view foreign order' do
+  scenario 'User tries to view foreign order' do
     sign_in(user)
-    visit order_path(other)
+    visit order_path(other_order)
 
     expect(page).to have_css '.alert',
       text: 'You are not authorized to access this page.'

@@ -35,7 +35,4 @@ RSpec.describe "books/show", type: :view do
     expect(rendered).to have_button 'Add to Cart'
   end
 
-  xit 'has a "Wishlist" button' do
-    expect(rendered).to have_button 'Wishlist'
-  end
 end
