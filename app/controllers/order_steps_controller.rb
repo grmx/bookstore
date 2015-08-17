@@ -1,6 +1,7 @@
 class OrderStepsController < ApplicationController
   before_filter :authenticate_user!
 
+  include OrderStepsHelper
   include Wicked::Wizard
 
   steps :billing_address, :shipping_address, :delivery, :payment, :confirm, :complete
@@ -11,16 +12,21 @@ class OrderStepsController < ApplicationController
     when :billing_address
       @billing_address = @order.billing_address || Address.new
     when :shipping_address
+      validate_step
       @shipping_address = @order.shipping_address || Address.new
     when :delivery
+      validate_step
       @deliveries = Delivery.order(:price)
       @order.delivery ||= @deliveries.first
     when :payment
+      validate_step
       @credit_card = current_user.credit_card || current_user.build_credit_card
     when :confirm
+      validate_step
       @shipping_address = @order.shipping_address
       @billing_address = @order.billing_address
     when :complete
+      validate_step
       @order = current_user.orders.in_queue.first
       @shipping_address = @order.shipping_address
       @billing_address = @order.billing_address
