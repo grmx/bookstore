@@ -26,6 +26,8 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+OmniAuth.config.test_mode = true
+
 RSpec.configure do |config|
   # FactoryGirl Methods
   config.include FactoryGirl::Syntax::Methods
@@ -37,6 +39,10 @@ RSpec.configure do |config|
   # Devise Helpers
   config.include Devise::TestHelpers, type: :controller
   config.include Devise::TestHelpers, type: :view
+
+  # OmniAuth Helpers
+  config.include Omniauth::Mock
+  config.include Omniauth::SessionHelpers, type: :feature
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
