@@ -33,8 +33,6 @@ RSpec.describe User, type: :model do
     it { should have_many(:orders).dependent(:destroy) }
     it { should have_many(:ratings).dependent(:destroy) }
     it { should have_one(:credit_card).dependent(:destroy) }
-    it { should have_one(:billing_address).class_name('Address') }
-    it { should have_one(:shipping_address).class_name('Address') }
     it { should have_and_belong_to_many(:books) }
   end
 

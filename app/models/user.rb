@@ -10,8 +10,6 @@ class User < ActiveRecord::Base
   has_many :identities, dependent: :destroy
 
   has_one :credit_card, dependent: :destroy
-  has_one :billing_address,  class_name: 'Address'
-  has_one :shipping_address, class_name: 'Address'
   has_and_belongs_to_many :books
 
   validates :email,
