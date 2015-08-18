@@ -35,8 +35,9 @@
         = @book.description
         = render 'links' if can? :manage, Book
 
-%hr
-%h2 Reviews
+- if @ratings.any?
+  %hr
+  %h3= pluralize(@ratings.count, 'Review')
 = render @ratings
 
 - if user_signed_in?
