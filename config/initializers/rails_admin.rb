@@ -21,19 +21,38 @@ RailsAdmin.config do |config|
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
   config.actions do
-    dashboard                     # mandatory
-    index                         # mandatory
-    new
+    dashboard do
+      except ['CreditCard', 'Identity']
+    end
+    index do
+      except ['CreditCard', 'Identity']
+    end
+    new do
+      except ['OrderItem']
+    end
     export
     bulk_delete
     show
     edit
-    delete
-    show_in_app
+    delete do
+      except ['Order', 'OrderItem']
+    end
+    show_in_app do
+      only ['Book', 'Category']
+    end
     state
 
     ## With an audit adapter, you can add:
     # history_index
     # history_show
   end
+
+  config.model Book do
+    edit do
+      include_all_fields
+      exclude_fields :keywords, :ratings, :users
+    end
+  end
+
+  config.label_methods.unshift(:full_name)
 end

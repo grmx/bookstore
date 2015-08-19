@@ -15,14 +15,9 @@ class Order < ActiveRecord::Base
 
   rails_admin do
     list do
-      field :id
-      field :total_price
       field :state, :state
-      field :user
-      field :billing_address
-      field :shipping_address
-      field :delivery
-      field :completed_at
+      include_all_fields
+      exclude_fields :completed_at, :updated_at
     end
     state({
       events: { submit: 'btn-primary', ship: 'btn-info', complete: 'btn-success', 
