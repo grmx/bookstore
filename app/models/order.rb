@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   belongs_to :billing_address, class_name: 'Address'
   belongs_to :shipping_address, class_name: 'Address'
   belongs_to :delivery
+  belongs_to :discount
 
   has_many :order_items, dependent: :destroy
 
@@ -57,13 +58,11 @@ class Order < ActiveRecord::Base
   end
 
   def calc_total_price
-    self.total_price = self.order_items.map do |oi|
-      if oi.valid?
-        oi.quantity * oi.price
-      else
-        nil
-      end
-    end.sum
+    self.total_price = self.order_items.map { |oi| oi.valid? ? oi.quantity * oi.price : nil }.sum
+  end
+
+  def calc_discount
+    total_price - total_price * (discount.discount / 100.0) if discount
   end
 
   private

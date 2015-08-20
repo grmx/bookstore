@@ -5,6 +5,7 @@ RSpec.describe "carts/show", type: :view do
   let(:book) { order.order_items.first.book }
 
   before do
+    assign(:order, order)
     assign(:order_items, order.order_items)
     render
   end

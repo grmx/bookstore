@@ -24,11 +24,12 @@ feature 'Add book into cart', %q{
 
     expect(page).to have_css '.alert',
       text: 'The book successfully added to the Cart.'
+    expect(current_path).to eq cart_path
 
-    fill_in 'order_item_quantity', with: '2'
-    # click_on 'Update cart'
+    fill_in 'qnty', with: '2'
+    click_on 'Update cart'
 
-    # expect(page).to have_css '.alert', text: 'The Cart successfully updated.'
+    expect(page).to have_css '.alert', text: 'The Cart successfully updated.'
   end
 
   scenario 'Authorized user adds the book to the Cart twice' do

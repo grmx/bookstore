@@ -20,6 +20,7 @@ RSpec.describe Order, type: :model do
     it { should belong_to(:billing_address).class_name('Address') }
     it { should belong_to(:shipping_address).class_name('Address') }
     it { should belong_to(:delivery) }
+    it { should belong_to(:discount) }
   end
 
   describe 'additional methods' do

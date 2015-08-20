@@ -60,14 +60,23 @@
       %tr
         %td.subtotal{colspan: 4}
           %p Subtotal:
+          - if @order.discount
+            %p Discount: 
           %p Shipping:
           %p Order Total:
         %td{colspan: 2}
           %p
             %b= number_to_currency @order.total_price
+          - if @order.discount
+            %p
+              %b= "- #{@order.discount.discount}%"
           %p
             %b= number_to_currency @order.delivery.price
-          %p
-            %b= number_to_currency @order.total_price + @order.delivery.price
+          - if @order.discount
+            %p
+              %b= number_to_currency @order.calc_discount + @order.delivery.price
+          - else
+            %p
+              %b= number_to_currency @order.total_price + @order.delivery.price
 
 %p= link_to 'Place Order', wizard_path, method: :patch, class: 'btn btn-info'

@@ -1,0 +1,21 @@
+.row
+  .col-xs-2
+    = link_to item.book do
+      = image_tag item.book.cover.thumb, class: 'img-responsive', title: item.book.title
+  .col-xs-4
+    %h4.product-name
+      %strong= link_to item.book.title, book_path(item.book)
+    %h4
+      %small= truncate item.book.description, length: 100
+  .col-xs-6
+    .col-xs-6.text-right
+      %h6
+        %strong= number_to_currency item.price
+        %span.text-muted x
+    .col-xs-4
+      = f.number_field :quantity, class: 'form-control input-sm', id: 'qnty'
+    .col-xs-2
+      = link_to order_item_path(item), method: :delete, id: 'book-remove',
+        data: { confirm: 'Are you sure?' }, class: 'btn btn-link btn-xs' do
+        %span.glyphicon.glyphicon-remove
+%hr

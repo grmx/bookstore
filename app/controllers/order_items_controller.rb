@@ -21,10 +21,10 @@ class OrderItemsController < ApplicationController
     order_item.update(quantity: params[:order_item][:quantity])
     order_item.order.calc_total_price
     if order_item.order.save
-      flash[:info] = "The Cart successfully updated."
+      flash[:info] = 'The Cart successfully updated.'
       redirect_to cart_path
     else
-      flash.now[:warning] = "Sorry, this book is not present in stock."
+      flash.now[:warning] = 'Sorry, this book is not present in stock.'
       redirect_to cart_path
     end
   end

@@ -14,41 +14,28 @@
               %span.glyphicon.glyphicon-share-alt
               Continue shopping
     .panel-body
-      - @order_items.each do |item|
+      = form_tag cart_path, method: :put do
+        - @order_items.each do |item|
+          = fields_for "order_items[]", item do |f|
+            = render 'row', item: item, f: f
         .row
-          .col-xs-2
-            = link_to item.book do
-              = image_tag item.book.cover.thumb, class: 'img-responsive', title: item.book.title
-          .col-xs-4
-            %h4.product-name
-              %strong= link_to item.book.title, book_path(item.book)
-            %h4
-              %small= truncate item.book.description, length: 100
-          .col-xs-6
-            .col-xs-6.text-right
-              %h6
-                %strong= number_to_currency item.price
-                %span.text-muted x
+          .text-center
+            .col-xs-5
+              %h6.text-right Added books?
             .col-xs-4
-              = form_for item do |f|
-                = f.number_field :quantity, class: 'form-control input-sm'
-            .col-xs-2
-              = link_to order_item_path(item), method: :delete, id: 'book-remove',
-                data: { confirm: 'Are you sure?' }, class: 'btn btn-link btn-xs' do
-                %span.glyphicon.glyphicon-remove
-        %hr
-      .row
-        .text-center
-          .col-xs-9
-            %h6.text-right Added items?
-          .col-xs-3
-            = link_to 'Update cart', '#', class: 'btn btn-default btn-sm btn-block'
+              - coupon = @order.discount ? @order.discount.coupon : nil
+              = text_field_tag :discount, coupon, placeholder: 'Coupon code',
+                class: 'form-control input-sm'
+            .col-xs-3
+              = submit_tag 'Update cart', class: 'btn btn-default btn-sm btn-block'
     .panel-footer
       .row.text-center
         .col-xs-9#subtotal
           %h4.text-right
             Total
-            = number_to_currency @order_items.first.order.total_price
+            = number_to_currency @order.total_price
+            - if @order.discount
+              = "(#{number_to_currency @order.calc_discount} with coupon)"
         .col-xs-3
           = link_to 'Checkout', order_steps_path, class: 'btn btn-success btn-block'
 - else

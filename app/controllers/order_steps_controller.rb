@@ -28,6 +28,7 @@ class OrderStepsController < ApplicationController
     when :complete
       validate_step
       @order = current_user.orders.in_queue.first
+      @order.total_price = @order.calc_discount if @order.discount
       @shipping_address = @order.shipping_address
       @billing_address = @order.billing_address
       [:billing_address, :shipping_address, :delivery, :payment, :confirm].

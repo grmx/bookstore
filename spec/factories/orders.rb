@@ -5,6 +5,7 @@ FactoryGirl.define do
     user
     delivery
     completed_at Time.now
+    discount nil
 
     factory :order_with_items do
       after(:create) do |order|

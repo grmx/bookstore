@@ -2,6 +2,7 @@ Book.destroy_all
 Author.destroy_all
 Category.destroy_all
 Delivery.destroy_all
+Discount.destroy_all
 
 categories = ["Art & Photography", "Biography", "Business, Finance & Law",
   "Children's Books", "Computing", "Crafts and Hobbies", "Crime & Thriller",
@@ -14,8 +15,6 @@ categories = ["Art & Photography", "Biography", "Business, Finance & Law",
 categories.each do |category|
   Category.create!(name: category)
 end
-
-puts "Created #{Category.count} categories."
 
 Book.create!([{
   title: "The Hobbit: The Enchanting Prelude to the Lord of the Rings",
@@ -131,7 +130,7 @@ Book.create!([{
   price: 11.58,
   stock: 5,
   category_id: 3,
-  author: Author.create!(first_name: "Guy", last_name: "Kawasaki"),
+  author: Author.find_or_create_by!(first_name: "Guy", last_name: "Kawasaki"),
   cover: Rails.root.join("db/images/reality_check.jpg").open
 }])
 
@@ -149,4 +148,15 @@ Delivery.create!([
     price: 15.00
 }])
 
-puts "Created #{Book.count} books."
+Discount.create!([
+  {
+    name: 'Halloween Discount',
+    coupon: 'HALLOWEEN2015',
+    discount: '20',
+    expires_at: Time.gm(2015, 10, 31) 
+}])
+
+puts "Created #{Category.count} categories."
+puts "Created #{Book.count} books by #{Author.count} authors."
+puts "Created #{Delivery.count} delivery plans."
+puts "Created #{Discount.count} discount coupons."
