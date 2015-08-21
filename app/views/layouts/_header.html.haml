@@ -18,7 +18,7 @@
           %li
             = link_to cart_path do
               %span.glyphicon.glyphicon-shopping-cart
-              Cart (#{cart_counter})
+              Cart (#{cart_counter}) #{order_total_price}
           %li.dropdown
             = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown', role: 'button', 'aria-haspopup': true, 'aria-expanded': false } do
               = current_user.email

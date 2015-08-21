@@ -10,6 +10,7 @@ RSpec.describe OrderItemsController, type: :controller do
     @ability.extend(CanCan::Ability)
     allow(controller).to receive(:current_ability).and_return(@ability)
     @ability.can :manage, OrderItem, user: @user
+    request.env["HTTP_REFERER"] = cart_path
   end
 
   describe 'POST #create' do

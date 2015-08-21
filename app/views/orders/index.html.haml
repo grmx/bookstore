@@ -31,7 +31,7 @@
             %p Subtotal:
           %td{colspan: 2}
             %p
-              %b= number_to_currency @in_progress.total_price
+              %b= order_total_price 
 
   %p= link_to 'Go to Cart', cart_path, class: 'btn btn-info'
 

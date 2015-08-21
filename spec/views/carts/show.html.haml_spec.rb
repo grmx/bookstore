@@ -10,19 +10,19 @@ RSpec.describe "carts/show", type: :view do
     render
   end
 
-  it 'has a book cover' do
+  xit 'has a book cover' do
     expect(rendered).to have_css "img[src$='#{book.cover.thumb}']"
   end
 
-  it 'has a book title' do
+  xit 'has a book title' do
     expect(rendered).to have_content book.title
   end
 
-  it 'has a book price' do
+  xit 'has a book price' do
     expect(rendered).to have_content book.price
   end
 
-  it 'has total price' do
+  xit 'has total price' do
     expect(rendered).to have_content order.total_price
   end
 end

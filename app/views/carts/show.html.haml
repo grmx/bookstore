@@ -32,8 +32,7 @@
       .row.text-center
         .col-xs-9#subtotal
           %h4.text-right
-            Total
-            = number_to_currency @order.total_price
+            = "Total #{order_total_price}"
             - if @order.discount
               = "(#{number_to_currency @order.calc_discount} with coupon)"
         .col-xs-3

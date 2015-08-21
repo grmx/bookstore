@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
     redirect_to main_app.root_path, :alert => exception.message
   end
 
+  helper_method :current_order
+
   def current_order
     current_user.orders.in_progress.first_or_create
   end
