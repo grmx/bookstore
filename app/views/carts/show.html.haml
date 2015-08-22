@@ -30,7 +30,10 @@
               = submit_tag 'Update cart', class: 'btn btn-default btn-sm btn-block'
     .panel-footer
       .row.text-center
-        .col-xs-9#subtotal
+        .col-xs-2
+          = button_to cart_path, method: :delete, class: 'btn btn-danger btn-block' do
+            Empty cart
+        .col-xs-7#subtotal
           %h4.text-right
             = "Total #{order_total_price}"
             - if @order.discount

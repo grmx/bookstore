@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :order_items, only: [:create, :update, :destroy]
   resources :order_steps, only: [:index, :show, :update]
   resources :orders,      only: [:index, :show]
-  resource  :cart,        only: [:show, :update]
+  resource  :cart,        only: [:show, :update, :destroy]
   get 'about', to: 'pages#about'
   get 'help',  to: 'pages#help'
 end
