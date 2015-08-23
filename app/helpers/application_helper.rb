@@ -2,6 +2,15 @@ module ApplicationHelper
 
   private
 
+  def full_title(page_title)
+    base_title = 'Bookstore'
+    if page_title.empty?
+      "#{base_title}"
+    else
+      "#{base_title} · #{page_title}"
+    end
+  end
+
   def cart_counter
     current_order.order_items.count if current_order
   end

@@ -1,6 +1,8 @@
 - if params[:search]
+  - provide(:title, 'Search')
   %h2 Search
 - else
+  - provide(:title, 'All books')
   %h2 All books
 
 = render 'books'

@@ -17,4 +17,14 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(sidebar_categories).to eq categories
     end
   end
+
+  describe '#full_title' do
+    it 'returns a full title with arg' do
+      expect(full_title('Page name')).to eq 'Bookstore · Page name'
+    end
+
+    it 'returns a shop name' do
+      expect(full_title('')).to eq 'Bookstore'
+    end
+  end
 end
