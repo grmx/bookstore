@@ -45,7 +45,8 @@
 - if user_signed_in?
   = render 'ratings/form'
 - else
-  %p.center
-    Please 
+  %hr
+  %p.text-center
+    Please
     = link_to 'sign in', new_user_session_path
-    for book review
+    for review a book.
