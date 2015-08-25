@@ -54,6 +54,7 @@ group :test do
   gem 'capybara'
   gem 'faker'
   gem 'launchy'
+  gem 'codeclimate-test-reporter'
 end
 
 group :production do
