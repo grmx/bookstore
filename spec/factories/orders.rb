@@ -5,6 +5,8 @@ FactoryGirl.define do
     user
     delivery
     completed_at Time.now
+    association :billing_address,  factory: :address
+    association :shipping_address, factory: :address
     discount nil
 
     factory :order_with_items do

@@ -1,0 +1,9 @@
+%h3= "Dear #{@order.billing_address.full_name}"
+%p Thank you for your recent order from The Bookstore.
+%p You ordered the following items:
+%table
+  %tr
+    %th{colspan: 2} Qty
+    %th Description
+  = render @order.order_items
+%p We'll send you a separate e-mail when your order ships.

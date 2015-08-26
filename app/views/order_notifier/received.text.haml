@@ -1,0 +1,9 @@
+= "Dear #{@order.billing_address.full_name}"
+
+Thank you for your recent order from The Bookstore.
+
+You ordered the following items:
+
+= render @order.order_items
+
+We'll send you a separate e-mail when your order ships.

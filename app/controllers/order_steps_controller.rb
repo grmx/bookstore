@@ -73,6 +73,7 @@ class OrderStepsController < ApplicationController
     when :confirm
       @order.state = :in_queue
       @order.completed_at = Time.current
+      OrderNotifier.received(@order).deliver_now
       session[:confirm] = true
       render_wizard @order
     when :complete

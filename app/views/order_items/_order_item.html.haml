@@ -1,0 +1,4 @@
+%tr
+  %td= "#{order_item.quantity} &times;"
+  %td= order_item.book.title
+  %td= number_to_currency order_item.quantity * order_item.price
