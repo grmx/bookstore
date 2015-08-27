@@ -21,6 +21,7 @@
               #{t('.cart')} (#{cart_counter}) #{order_total_price}
           %li.dropdown
             = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown', role: 'button', 'aria-haspopup': true, 'aria-expanded': false } do
+              = image_tag get_avatar, class: 'profile-image img-circle'
               = current_user.email
               %span.caret
             %ul.dropdown-menu

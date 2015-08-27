@@ -17,6 +17,13 @@ h1, h2 {
   }
 }
 
+.profile-image {
+  position: relative;
+  top: -5px;
+  float: left;
+  left: -5px;
+}
+
 .avatar {
   border: 2px solid #f5f5f5;
   position: relative;

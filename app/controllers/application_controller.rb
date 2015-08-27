@@ -11,12 +11,22 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_order
+  helper_method :get_avatar
 
   def current_order
     current_user.orders.in_progress.first_or_create
   end
 
   protected
+
+  def get_avatar
+    if current_user.avatar?
+      current_user.avatar.thumb
+    else
+      hash = Digest::MD5.hexdigest(current_user.email)
+      "http://www.gravatar.com/avatar/#{hash}?s=30&d=identicon"
+    end
+  end
 
   def set_i18n_locale_from_params
     if params[:locale]
