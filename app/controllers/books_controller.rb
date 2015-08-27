@@ -1,9 +1,13 @@
 class BooksController < ApplicationController
   def index
-    @books = if params[:search]
-      Book.search(params[:search]).order(:title).page(params[:page]).per(9)
+    if params[:set_locale]
+      redirect_to root_url(locale: params[:set_locale])
     else
-      Book.order(:title).page(params[:page]).per(9)
+      @books = if params[:search]
+        Book.search(params[:search]).order(:title).page(params[:page]).per(9)
+      else
+        Book.order(:title).page(params[:page]).per(9)
+      end
     end
   end
 
