@@ -19,7 +19,7 @@ feature 'View all orders', %q{
     visit root_path
     click_on 'My Orders'
 
-    expect(current_path).to eq orders_path
+    expect(current_path).to eq orders_path(:en)
     expect(page).to have_css 'h2', text: 'Orders'
     expect(page).to have_content 'In Progress'
     in_progress.order_items.each do |oi|
@@ -45,7 +45,7 @@ feature 'View all orders', %q{
 
   scenario 'Authorized user views a single order page' do
     sign_in(user)
-    visit order_path(delivered)
+    visit order_path(:en, delivered)
 
     expect(page).to have_css 'h2', text: "Order #{delivered.id}"
     delivered.order_items.each do |oi|
@@ -58,15 +58,15 @@ feature 'View all orders', %q{
 
   scenario 'User tries to view foreign order' do
     sign_in(user)
-    visit order_path(other_order)
+    visit order_path(:en, other_order)
 
     expect(page).to have_css '.alert',
       text: 'You are not authorized to access this page.'
-    expect(current_path).to eq root_path
+    expect(current_path).to eq root_path(:en)
   end
 
   scenario 'Visitor tries to view all orders' do
-    visit orders_path
+    visit orders_path(:en)
 
     expect(page).to have_css '.alert',
       text: 'You need to sign in or sign up before continuing.'
@@ -74,7 +74,7 @@ feature 'View all orders', %q{
   end
 
   scenario 'Visitor tries to view a single order' do
-    visit order_path(delivered)
+    visit order_path(:en, delivered)
 
     expect(page).to have_css '.alert',
       text: 'You need to sign in or sign up before continuing.'

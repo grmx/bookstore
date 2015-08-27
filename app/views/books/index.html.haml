@@ -1,8 +1,8 @@
 - if params[:search]
-  - provide(:title, 'Search')
-  %h2 Search
+  - provide(:title, t('.search'))
+  %h2= t('.search')
 - else
-  - provide(:title, 'All books')
-  %h2 All books
+  - provide(:title, t('.all_books'))
+  %h2= t('.all_books')
 
 = render 'books'

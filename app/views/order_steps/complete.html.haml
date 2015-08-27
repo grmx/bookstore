@@ -1,12 +1,12 @@
-- provide(:title, 'Checkout · Complete')
+- provide(:title, "#{t('.checkout')} · #{t('.complete')}")
 
-%h2 Checkout
+%h2= t('.checkout')
 
-%h3= "Order #{@order.id}"
+%h3= "#{t('.order')} #{@order.id}"
 
 .row
   .col-md-3
-    %h4 Shipping Address
+    %h4= t('.shipping_address')
     %p= @shipping_address.full_name
     %p= @shipping_address.address
     %p
@@ -14,10 +14,10 @@
       = @shipping_address.zipcode
     %p= @shipping_address.country
     %p
-      Phone
+      = t('.phone')
       = @shipping_address.phone
   .col-md-3
-    %h4 Billing Address
+    %h4= t('.billing_address')
     %p= @billing_address.full_name
     %p= @billing_address.address
     %p
@@ -25,13 +25,13 @@
       = @billing_address.zipcode
     %p= @billing_address.country
     %p
-      Phone
+      = t('.phone')
       = @billing_address.phone
   .col-md-3
-    %h4 Shipments
+    %h4= t('.shipments')
     %p= @order.delivery.name
   .col-md-3
-    %h4 Payment Information
+    %h4= t('.payment_information')
     %p= current_user.credit_card.mask
     %p= current_user.credit_card.date
 
@@ -40,10 +40,10 @@
     %thead
       %tr
         %th
-        %th Book
-        %th Price
-        %th Qty
-        %th Total
+        %th= t('.book')
+        %th= t('.price')
+        %th= t('.qty')
+        %th= t('.total')
     %tbody
       - @order.order_items.each do |item|
         %tr
@@ -59,11 +59,11 @@
           %td= number_to_currency(item.quantity * item.price)
       %tr
         %td.subtotal{colspan: 4}
-          %p Subtotal:
+          %p= t('.subtotal')
           - if @order.discount
-            %p Discount: 
-          %p Shipping:
-          %p Order Total:
+            %p= t('.discount')
+          %p= t('.shipping')
+          %p= t('.order_total')
         %td{colspan: 2}
           %p
             %b= number_to_currency @order.total_price
@@ -79,4 +79,4 @@
             %p
               %b= number_to_currency @order.total_price + @order.delivery.price
 
-%p= link_to 'Go back to Store', root_path, class: 'btn btn-info'
+%p= link_to t('.go_back_to_store'), root_path, class: 'btn btn-info'

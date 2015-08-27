@@ -11,23 +11,23 @@ feature 'Delete book from cart', %q{
 
   background do
     sign_in(user)
-    visit book_path(book)
+    visit book_path(:en, book)
     click_on 'Add to Cart'
 
-    expect(current_path).to eq cart_path
+    expect(current_path).to eq cart_path(:en)
     expect(page).to have_css '.alert',
       text: 'The book successfully added to the Cart.'
-    visit book_path(other_book)
+    visit book_path(:en, other_book)
     click_on 'Add to Cart'
 
-    expect(current_path).to eq cart_path
+    expect(current_path).to eq cart_path(:en)
     expect(page).to have_content book.price + other_book.price
   end
 
   scenario 'Authorized user deletes the book from the Cart' do
     click_on 'book-remove', match: :first
 
-    expect(current_path).to eq cart_path
+    expect(current_path).to eq cart_path(:en)
     expect(page).to_not have_content other_book.title
     expect(page).to have_css '#subtotal', text: other_book.price
   end

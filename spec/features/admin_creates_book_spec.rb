@@ -45,7 +45,7 @@ feature 'Create book', %q{
     sign_in(user)
     visit rails_admin.new_path(model_name: 'book')
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq root_path(:en)
   end
 
   scenario 'Non-authenticated user tries to create a book' do

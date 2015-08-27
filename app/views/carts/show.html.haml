@@ -1,6 +1,6 @@
-- provide(:title, 'Shopping cart')
+- provide(:title, t('.shopping_cart'))
 
-%h2 Your cart
+%h2= t('.your_cart')
 
 - unless @order_items.empty?
   .panel.panel-info
@@ -10,11 +10,11 @@
           .col-xs-6
             %h5
               %span.glyphicon.glyphicon-shopping-cart
-              Shopping Cart
+              = t('.shopping_cart')
           .col-xs-6
             = link_to books_path, class: 'btn btn-primary btn-sm btn-block' do
               %span.glyphicon.glyphicon-share-alt
-              Continue shopping
+                #{t('.continue_shopping')}
     .panel-body
       = form_tag cart_path, method: :put do
         - @order_items.each do |item|
@@ -23,24 +23,24 @@
         .row
           .text-center
             .col-xs-5
-              %h6.text-right Added books?
+              %h6.text-right= t('.added_books')
             .col-xs-4
               - coupon = @order.discount ? @order.discount.coupon : nil
-              = text_field_tag :discount, coupon, placeholder: 'Coupon code',
+              = text_field_tag :discount, coupon, placeholder: t('.coupon_code'),
                 class: 'form-control input-sm'
             .col-xs-3
-              = submit_tag 'Update cart', class: 'btn btn-default btn-sm btn-block'
+              = submit_tag t('.update_cart'), class: 'btn btn-default btn-sm btn-block'
     .panel-footer
       .row.text-center
         .col-xs-2
           = button_to cart_path, method: :delete, class: 'btn btn-danger btn-block' do
-            Empty cart
+            #{t('.empty_cart')}
         .col-xs-7#subtotal
           %h4.text-right
-            = "Total #{order_total_price}"
+            = "#{t('.total')} #{order_total_price}"
             - if @order.discount
-              = "(#{number_to_currency @order.calc_discount} with coupon)"
+              = "(#{number_to_currency @order.calc_discount} #{t('.with_coupon')})"
         .col-xs-3
-          = link_to 'Checkout', order_steps_path, class: 'btn btn-success btn-block'
+          = link_to t('.checkout'), order_steps_path, class: 'btn btn-success btn-block'
 - else
-  %p Your shopping cart is empty.
+  %p= t('.your_shopping_cart_is_empty')

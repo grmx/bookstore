@@ -11,7 +11,7 @@ feature 'View book info', %q{
     visit root_path
     click_on book.title
 
-    expect(current_path).to eq book_path(book)
+    expect(current_path).to eq book_path(:en, book)
     expect(page).to have_content book.title
     expect(page).to have_content book.price
     expect(page).to have_content book.description

@@ -12,15 +12,15 @@ feature 'User discount', %q{
 
   background do
     sign_in(user)
-    visit book_path(book)
+    visit book_path(:en, book)
     click_on 'Add to Cart'
-    visit cart_path
+    visit cart_path(:en)
     fill_in 'Coupon code', with: discount.coupon
     click_on 'Update cart'
   end
 
   scenario 'Authorized user uses a discount coupon' do
-    expect(current_path).to eq cart_path
+    expect(current_path).to eq cart_path(:en)
     expect(page).
       to have_content (book.price - (book.price * discount.discount / 100)).round(2)
   end

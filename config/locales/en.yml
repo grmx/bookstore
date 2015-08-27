@@ -1,23 +1,76 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
+---
 en:
-  hello: "Hello world"
+  books:
+    index:
+      all_books: All books
+      search: Search
+    links:
+      delete: Delete
+      edit: Edit
+    show:
+      add_to_cart: Add to Cart
+      for_review_a_book: for review a book.
+      please: Please
+      review: Review
+      wishlist: Wishlist
+    wishlist:
+      my_wishlist: My Wishlist
+      wishlist: Wishlist
+  carts:
+    row:
+      are_you_sure: Are you sure?
+    show:
+      added_books: Added books?
+      checkout: Checkout
+      continue_shopping: Continue shopping
+      coupon_code: Coupon code
+      empty_cart: Empty cart
+      shopping_cart: Shopping cart
+      total: Total
+      update_cart: Update cart
+      with_coupon: with coupon
+      your_cart: Your cart
+      your_shopping_cart_is_empty: Your shopping cart is empty.
+  layouts:
+    footer:
+      about: About
+      help: Help
+    header:
+      admin_panel: Admin Panel
+      cart: Cart
+      my_orders: My Orders
+      my_wishlist: My Wishlist
+      search: Search
+      search_books: Search books
+      settings: Settings
+      sign_in: Sign in
+      sign_out: Sign out
+      sign_up: Sign up
+  order_steps:
+    billing_address:
+      billing_address: Billing Address
+      checkout: Checkout
+      item_total: 'Item total:'
+      order_summary: Order Summary
+      order_total: 'Order total:'
+      save_and_continue: Save and continue
+    complete:
+      billing_address: Billing Address
+      book: Book
+      checkout: Checkout
+      complete: Complete
+      discount: 'Discount:'
+      go_back_to_store: Go back to Store
+      order: Order
+      order_total: 'Order Total:'
+      payment_information: Payment Information
+      phone: Phone
+      price: Price
+      qty: Qty
+      shipments: Shipments
+      shipping: 'Shipping:'
+      shipping_address: Shipping Address
+      subtotal: 'Subtotal:'
+      total: Total
+    step_link:
+      step: Step

@@ -1,24 +1,24 @@
-- provide(:title, 'Checkout · Billing Address')
+- provide(:title, "#{t('.checkout')} · #{t('.billing_address')}")
 
-%h2 Checkout
+%h2= t('.checkout')
 
 = render 'steps'
 
 .row
   .col-md-4
-    %h3 Billing Address
+    %h3= t('.billing_address')
     = render 'shared/error_messages', object: @billing_address
     = form_for @billing_address, url: wizard_path, method: :patch do |bill|
       = render 'address_form', addr: bill
-      = bill.submit 'Save and continue', class: 'btn btn-info'
+      = bill.submit t('.save_and_continue'), class: 'btn btn-info'
   .col-md-4
   .col-md-4.order-summary
-    %h3 Order Summary
+    %h3= t('.order_summary')
     %p
-      Item total:
+      = t('.item_total')
       %b= number_to_currency @order.total_price
     %p
-      Order total:
+      = t('.order_total')
       - if @order.discount
         %b= number_to_currency @order.calc_discount
       - else

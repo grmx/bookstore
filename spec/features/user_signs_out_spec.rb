@@ -11,11 +11,11 @@ feature 'User signs out', %q{
     sign_in(user)
 
     expect(page).to have_content 'Signed in successfully.'
-    expect(current_path).to eq root_path
+    expect(current_path).to eq root_path(:en)
 
     click_on 'Sign out'
 
     expect(page).to have_content 'Signed out successfully.'
-    expect(current_path).to eq root_path
+    expect(current_path).to eq root_path(:en)
   end
 end

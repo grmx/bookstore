@@ -44,7 +44,7 @@ feature 'Create author', %q{
     sign_in(user)
     visit rails_admin.new_path(model_name: 'author')
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq root_path(:en)
   end
 
   scenario 'Non-authenticated user tries to create an author' do

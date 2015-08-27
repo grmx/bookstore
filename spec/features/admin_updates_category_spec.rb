@@ -39,7 +39,7 @@ feature 'Update category', %q{
     sign_in(user)
     visit rails_admin.edit_path(model_name: 'category', id: category.id)
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq root_path(:en)
   end
 
   scenario 'Non-authenticated user tries to edit the category' do

@@ -12,7 +12,7 @@ feature 'User signs in', %q{
     sign_in(user)
 
     expect(page).to have_content 'Signed in successfully.'
-    expect(current_path).to eq root_path
+    expect(current_path).to eq root_path(:en)
   end
 
   scenario 'Non-registered user tries to sign in' do

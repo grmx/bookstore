@@ -14,7 +14,7 @@ feature 'User places order', %q{
 
   background do
     sign_in(user)
-    visit book_path(book)
+    visit book_path(:en, book)
     click_on 'Add to Cart'
     click_on 'Checkout'
   end
@@ -78,6 +78,6 @@ feature 'User places order', %q{
 
     click_on 'Go back to Store'
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq root_path(:en)
   end
 end

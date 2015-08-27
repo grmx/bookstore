@@ -9,7 +9,7 @@ feature 'Navigate by pages', %q{
   given!(:category) { create(:category_with_books, books_count: 10) }
 
   scenario 'Visitor navigates by pages (all books)' do
-    visit books_path
+    visit books_path(:en)
 
     expect(page).to have_selector 'h4', count: 9
     expect(page).to have_css 'li.active a', text: '1'
@@ -23,7 +23,7 @@ feature 'Navigate by pages', %q{
   end
 
   scenario 'Visitor navigates by pages (books by category)' do
-    visit category_path(category)
+    visit category_path(:en, category)
 
     expect(page).to have_selector 'h4', count: 9
     expect(page).to have_css 'li.active a', text: '1'

@@ -42,7 +42,7 @@ feature 'Update author', %q{
     sign_in(user)
     visit rails_admin.edit_path(model_name: 'author', id: author.id)
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq root_path(:en)
   end
 
   scenario 'Non-authenticated user tries to edit the author' do

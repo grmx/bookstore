@@ -11,12 +11,12 @@ feature 'User review', %q{
 
   scenario 'Authorized user creates a review' do
     sign_in(user)
-    visit book_path(book)
+    visit book_path(:en, book)
     fill_in 'Review', with: review.review
     choose review.rating
     click_on 'Add review'
 
-    expect(current_path).to eq book_path(book)
+    expect(current_path).to eq book_path(:en, book)
     expect(page).not_to have_content review.review
     expect(page).to have_css '.alert', 
       text: 'Thanks! Your review is awaiting moderation'

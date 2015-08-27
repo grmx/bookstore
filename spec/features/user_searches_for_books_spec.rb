@@ -9,11 +9,11 @@ feature 'User search', %q{
   given!(:other_book) { create(:book) }
 
   scenario 'User searches for books by keyword' do
-    visit root_path
+    visit root_path(:en)
     fill_in 'search', with: 'Martian'
     click_on 'Search'
 
-    expect(current_path).to eq books_path
+    expect(current_path).to eq books_path(:en)
     expect(page).to have_css 'h2', text: 'Search'
     expect(page).to have_content book.title
     expect(page).to have_content book.price

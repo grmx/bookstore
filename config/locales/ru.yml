@@ -1,0 +1,76 @@
+---
+ru:
+  books:
+    index:
+      all_books: Все книги
+      search: Поиск
+    links:
+      delete: Удалить
+      edit: Редактировать
+    show:
+      add_to_cart: В корзину
+      for_review_a_book: для рецензирования книги.
+      please: 'Пожалуйста,'
+      review: Рецензия
+      wishlist: В список желаний
+    wishlist:
+      my_wishlist: Мой список желаний
+      wishlist: Список желаний
+  carts:
+    row:
+      are_you_sure: Вы уверены?
+    show:
+      added_books: Добавили книги?
+      checkout: Оформление
+      continue_shopping: Продолжить покупки
+      coupon_code: Скидочный купон
+      empty_cart: Очистить
+      shopping_cart: Корзина
+      total: Итого
+      update_cart: Обновить корзину
+      with_coupon: со скидкой
+      your_cart: Ваша корзина
+      your_shopping_cart_is_empty: Ваша карзина пуста.
+  layouts:
+    footer:
+      about: О нас
+      help: Помощь
+    header:
+      admin_panel: Админпанель
+      cart: Корзина
+      my_orders: Мои заказы
+      my_wishlist: Мои желания
+      search: Поиск
+      search_books: Искать книги
+      settings: Настройки
+      sign_in: Войти
+      sign_out: Выйти
+      sign_up: Зарегистрироваться
+  order_steps:
+    billing_address:
+      billing_address: Адрес плательщика
+      checkout: Оформление
+      item_total: 'Стоимость:'
+      order_summary: Расчет стоимости
+      order_total: 'Итого по заказу:'
+      save_and_continue: Сохранить и продолжить
+    complete:
+      billing_address: Адрес доставки
+      book: Книга
+      checkout: Оформление
+      complete: Завершение
+      discount: 'Скидка:'
+      go_back_to_store: Назад в магазин
+      order: Заказ
+      order_total: 'Итого по заказу:'
+      payment_information: Платежная Информация
+      phone: Тел.
+      price: Цена
+      qty: Кол-во
+      shipments: Доставка
+      shipping: 'Доставка:'
+      shipping_address: Адрес доставки
+      subtotal: 'Итого:'
+      total: Всего
+    step_link:
+      step: Шаг

@@ -12,13 +12,13 @@
       %ul.nav.navbar-nav.navbar-right
         = form_tag books_path, method: :get, id: 'search-form', class: 'navbar-form navbar-left' do
           .form-group
-            = text_field_tag :search, params[:search], placeholder: "Search books", class: 'form-control'
-          = submit_tag 'Search', class: 'btn btn-default'
+            = text_field_tag :search, params[:search], placeholder: "#{t('.search_books')}", class: 'form-control'
+          = submit_tag "#{t('.search')}", class: 'btn btn-default'
         - if user_signed_in?
           %li
             = link_to cart_path do
               %span.glyphicon.glyphicon-shopping-cart
-              Cart (#{cart_counter}) #{order_total_price}
+              #{t('.cart')} (#{cart_counter}) #{order_total_price}
           %li.dropdown
             = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown', role: 'button', 'aria-haspopup': true, 'aria-expanded': false } do
               = current_user.email
@@ -27,26 +27,25 @@
               - if can? :access, :rails_admin
                 %li
                   = link_to rails_admin.dashboard_path do
-                    Admin Panel
                     %span.gl-right.glyphicon.glyphicon-wrench
+                    #{t('.admin_panel')}
               %li
                 = link_to wishlist_books_path do
-                  My Wishlist
                   %span.gl-right.glyphicon.glyphicon-heart
+                  #{t('.my_wishlist')}
               %li
                 = link_to orders_path do
-                  My Orders
                   %span.gl-right.glyphicon.glyphicon-list-alt
+                  #{t('.my_orders')}
               %li
                 = link_to edit_user_registration_path do
-                  Settings
                   %span.gl-right.glyphicon.glyphicon-cog
+                  #{t('.settings')}
               %li.divider{role: 'separator'}
               %li
                 = link_to destroy_user_session_path, method: :delete do
-                  Sign out
                   %span.gl-right.glyphicon.glyphicon-log-out
+                  #{t('.sign_out')}
         - else
-          %li= link_to 'Sign in', new_user_session_path
-          %li= link_to 'Sign up', new_user_registration_path
-
+          %li= link_to t('.sign_in'), new_user_session_path
+          %li= link_to t('.sign_up'), new_user_registration_path
