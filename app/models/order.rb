@@ -37,15 +37,15 @@ class Order < ActiveRecord::Base
       transitions from: :in_progress, to: :in_queue
     end
 
-    event :ship, before: :complete_order  do
+    event :ship, before: :complete_order, after: :shipped_notify do
       transitions from: :in_queue, to: :in_delivery
     end
 
-    event :complete, before: :complete_order  do
+    event :complete, before: :complete_order do
       transitions from: :in_delivery, to: :delivered
     end
 
-    event :cancel, before: :complete_order  do
+    event :cancel, before: :complete_order do
       transitions from: [:in_progress, :in_queue], to: :canceled
     end
   end
@@ -63,6 +63,10 @@ class Order < ActiveRecord::Base
 
   def calc_discount
     total_price - total_price * (discount.discount / 100.0) if discount
+  end
+
+  def shipped_notify
+    OrderNotifier.shipped(self).delivery_now
   end
 
   private
