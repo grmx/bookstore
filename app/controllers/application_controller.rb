@@ -19,12 +19,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def get_avatar
+  def get_avatar(size = 30)
     if current_user.avatar?
       current_user.avatar.thumb
     else
       hash = Digest::MD5.hexdigest(current_user.email)
-      "http://www.gravatar.com/avatar/#{hash}?s=30&d=identicon"
+      "http://www.gravatar.com/avatar/#{hash}?s=#{size}&d=identicon"
     end
   end
 
