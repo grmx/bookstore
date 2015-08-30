@@ -10,10 +10,10 @@ class OrderStepsController < ApplicationController
     @order = current_order
     case step
     when :billing_address
-      @billing_address = @order.billing_address || Address.new
+      @billing_address = build_address(:billing)
     when :shipping_address
       validate_step
-      @shipping_address = @order.shipping_address || Address.new
+      @shipping_address = build_address(:shipping)
     when :delivery
       validate_step
       @deliveries = Delivery.order(:price)
@@ -41,35 +41,18 @@ class OrderStepsController < ApplicationController
     @order = current_order
     case step
     when :billing_address
-      @billing_address = @order.billing_address || Address.create(address_params)
-      if @billing_address.save
-        @order.billing_address = @billing_address
-        session[:billing_address] = true
-        render_wizard @order
-      else
-        render_wizard
-      end
+      @billing_address = @order.billing_address || @order.build_billing_address(address_params)
+      save_step(:billing_address)
     when :shipping_address
-      @shipping_address = @order.shipping_address || Address.create(address_params)
-      if @shipping_address.save
-        @order.shipping_address = @shipping_address
-        session[:shipping_address] = true
-        render_wizard @order
-      else
-        render_wizard
-      end
+      @shipping_address = @order.shipping_address || @order.build_shipping_address(address_params)
+      save_step(:shipping_address)
     when :delivery
       @order.delivery = Delivery.find(params[:order][:delivery_id])
       session[:delivery] = true
       render_wizard @order
     when :payment
       @credit_card = current_user.create_credit_card(credit_card_params)
-      if @credit_card.save
-        session[:payment] = true
-        render_wizard @order
-      else
-        render_wizard
-      end
+      save_step(:credit_card)
     when :confirm
       @order.state = :in_queue
       @order.completed_at = Time.current
@@ -90,5 +73,18 @@ class OrderStepsController < ApplicationController
 
   def credit_card_params
     params.require(:credit_card).permit(:number, :exp_month, :exp_year, :cvv)
+  end
+
+  def build_address(type)
+    @order.send("#{type}_address") || Address.new
+  end
+
+  def save_step(object)
+    if instance_variable_get("@#{object}").save
+      session[step.to_sym] = true
+      render_wizard @order
+    else
+      render_wizard
+    end
   end
 end
