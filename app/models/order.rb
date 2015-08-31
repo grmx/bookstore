@@ -69,9 +69,13 @@ class Order < ActiveRecord::Base
     OrderNotifier.shipped(self).delivery_now
   end
 
+  def empty!
+    order_items.delete_all
+  end
+
   private
 
   def complete_order
-    self.completed_at = Time.current
+    self.completed_at = Time.now
   end
 end

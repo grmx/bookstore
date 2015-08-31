@@ -20,7 +20,7 @@ class CartsController < ApplicationController
   end
 
   def destroy
-    current_order.order_items.delete_all
+    current_order.empty!
     flash[:warning] = 'The Cart successfully emptied.'
     redirect_to cart_path
   end
