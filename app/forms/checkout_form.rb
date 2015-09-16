@@ -29,7 +29,7 @@ class CheckoutForm
       end
     when :confirm
       @order.state = :in_queue
-      @order.completed_at = Time.current
+      @order.completed_at = Time.zone.now
       OrderNotifier.received(@order).deliver_now
     when :complete
     end
@@ -40,11 +40,11 @@ class CheckoutForm
   end
 
   def billing_address
-    @order.billing_address || Address.new
+    build_address(:billing)
   end
 
   def shipping_address
-    @order.shipping_address || Address.new
+    build_address(:shipping)
   end
 
   def deliveries
@@ -53,15 +53,6 @@ class CheckoutForm
 
   def payment
     @order.user.credit_card || CreditCard.new
-  end
-
-  def complete
-    @order = current_user.orders.in_queue.first
-    @order.total_price = @order.calc_discount if @order.discount
-    @shipping_address = @order.shipping_address
-    @billing_address = @order.billing_address
-    [:billing_address, :shipping_address, :delivery, :payment, :confirm].
-      each { |s| session.delete(s) }
   end
 
   private

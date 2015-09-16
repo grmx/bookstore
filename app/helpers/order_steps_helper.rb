@@ -7,6 +7,10 @@ module OrderStepsHelper
   private
 
   def validate_step
-    jump_to(previous_step.to_sym) if session[previous_step.to_sym].nil?
+    if session[previous_step.to_sym].nil? && step != steps.first
+      jump_to(previous_step.to_sym)
+    elsif step.eql? steps.last
+      steps.each { |s| session.delete(s) }
+    end
   end
 end

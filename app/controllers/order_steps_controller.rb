@@ -8,11 +8,13 @@ class OrderStepsController < ApplicationController
   steps :billing_address, :shipping_address, :delivery, :payment, :confirm, :complete
 
   def show
+    validate_step
     render_wizard
   end
 
   def update
     @form.update(step, order_steps_params)
+    session[step] = true
     render_wizard @form
   end
 
