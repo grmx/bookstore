@@ -48,7 +48,7 @@ feature 'User places order', %q{
 
     expect(page).to have_css 'a h4', text: 'Step 3'
     expect(page).to have_css 'h3', text: 'Delivery'
-    expect(page).to have_content book.price + deliveries.first.price
+    expect(page).to have_content book.price
 
     click_on 'Save and continue'
 

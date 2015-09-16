@@ -2,34 +2,34 @@
 
 %h2= t('.checkout')
 
-%h3= "#{t('.order')} #{@order.id}"
+%h3= "#{t('.order')} #{last_order.id}"
 
 .row
   .col-md-3
     %h4= t('.shipping_address')
-    %p= @shipping_address.full_name
-    %p= @shipping_address.address
+    %p= @form.shipping_address.full_name
+    %p= @form.shipping_address.address
     %p
-      = @shipping_address.city
-      = @shipping_address.zipcode
-    %p= @shipping_address.country
+      = @form.shipping_address.city
+      = @form.shipping_address.zipcode
+    %p= @form.shipping_address.country
     %p
       = t('.phone')
-      = @shipping_address.phone
+      = @form.shipping_address.phone
   .col-md-3
     %h4= t('.billing_address')
-    %p= @billing_address.full_name
-    %p= @billing_address.address
+    %p= @form.billing_address.full_name
+    %p= @form.billing_address.address
     %p
-      = @billing_address.city
-      = @billing_address.zipcode
-    %p= @billing_address.country
+      = @form.billing_address.city
+      = @form.billing_address.zipcode
+    %p= @form.billing_address.country
     %p
       = t('.phone')
-      = @billing_address.phone
+      = @form.billing_address.phone
   .col-md-3
     %h4= t('.shipments')
-    %p= @order.delivery.name
+    %p= last_order.delivery.name
   .col-md-3
     %h4= t('.payment_information')
     %p= current_user.credit_card.mask
@@ -45,7 +45,7 @@
         %th= t('.qty')
         %th= t('.total')
     %tbody
-      - @order.order_items.each do |item|
+      - last_order.order_items.each do |item|
         %tr
           %td
             = link_to book_path(item.book) do
@@ -60,23 +60,23 @@
       %tr
         %td.subtotal{colspan: 4}
           %p= t('.subtotal')
-          - if @order.discount
+          - if last_order.discount
             %p= t('.discount')
           %p= t('.shipping')
           %p= t('.order_total')
         %td{colspan: 2}
           %p
-            %b= number_to_currency @order.total_price
-          - if @order.discount
+            %b= number_to_currency last_order.total_price
+          - if last_order.discount
             %p
-              %b= "- #{@order.discount.discount}%"
+              %b= "- #{last_order.discount.discount}%"
           %p
-            %b= number_to_currency @order.delivery.price
-          - if @order.discount
+            %b= number_to_currency last_order.delivery.price
+          - if last_order.discount
             %p
-              %b= number_to_currency @order.calc_discount + @order.delivery.price
+              %b= number_to_currency last_order.calc_discount + last_order.delivery.price
           - else
             %p
-              %b= number_to_currency @order.total_price + @order.delivery.price
+              %b= number_to_currency last_order.total_price + last_order.delivery.price
 
 %p= link_to t('.go_back_to_store'), root_path, class: 'btn btn-info'

@@ -9,29 +9,29 @@
 .row
   .col-md-3
     %h4 Shipping Address
-    %p= @shipping_address.full_name
-    %p= @shipping_address.address
+    %p= @form.shipping_address.full_name
+    %p= @form.shipping_address.address
     %p
-      = @shipping_address.city
-      = @shipping_address.zipcode
-    %p= @shipping_address.country
+      = @form.shipping_address.city
+      = @form.shipping_address.zipcode
+    %p= @form.shipping_address.country
     %p
       Phone
-      = @shipping_address.phone
+      = @form.shipping_address.phone
   .col-md-3
     %h4 Billing Address
-    %p= @billing_address.full_name
-    %p= @billing_address.address
+    %p= @form.billing_address.full_name
+    %p= @form.billing_address.address
     %p
-      = @billing_address.city
-      = @billing_address.zipcode
-    %p= @billing_address.country
+      = @form.billing_address.city
+      = @form.billing_address.zipcode
+    %p= @form.billing_address.country
     %p
       Phone
-      = @billing_address.phone
+      = @form.billing_address.phone
   .col-md-3
     %h4 Shipments
-    %p= @order.delivery.name
+    %p= current_order.delivery.name
   .col-md-3
     %h4 Payment Information
     %p= current_user.credit_card.mask
@@ -47,7 +47,7 @@
         %th Qty
         %th Total
     %tbody
-      - @order.order_items.each do |item|
+      - current_order.order_items.each do |item|
         %tr
           %td
             = link_to book_path(item.book) do
@@ -62,23 +62,23 @@
       %tr
         %td.subtotal{colspan: 4}
           %p Subtotal:
-          - if @order.discount
+          - if current_order.discount
             %p Discount: 
           %p Shipping:
           %p Order Total:
         %td{colspan: 2}
           %p
-            %b= number_to_currency @order.total_price
-          - if @order.discount
+            %b= number_to_currency current_order.total_price
+          - if current_order.discount
             %p
-              %b= "- #{@order.discount.discount}%"
+              %b= "- #{current_order.discount.discount}%"
           %p
-            %b= number_to_currency @order.delivery.price
-          - if @order.discount
+            %b= number_to_currency current_order.delivery.price
+          - if current_order.discount
             %p
-              %b= number_to_currency @order.calc_discount + @order.delivery.price
+              %b= number_to_currency current_order.calc_discount + current_order.delivery.price
           - else
             %p
-              %b= number_to_currency @order.total_price + @order.delivery.price
+              %b= number_to_currency current_order.total_price + current_order.delivery.price
 
 %p= link_to 'Place Order', wizard_path, method: :patch, class: 'btn btn-info'

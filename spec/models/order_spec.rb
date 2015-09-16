@@ -17,8 +17,8 @@ RSpec.describe Order, type: :model do
   describe 'associations' do
     it { should belong_to(:user) }
     it { should have_many(:order_items).dependent(:destroy) }
-    it { should belong_to(:billing_address).class_name('Address') }
-    it { should belong_to(:shipping_address).class_name('Address') }
+    it { should belong_to(:billing_address).class_name('Address').autosave(true) }
+    it { should belong_to(:shipping_address).class_name('Address').autosave(true) }
     it { should belong_to(:delivery) }
     it { should belong_to(:discount) }
   end

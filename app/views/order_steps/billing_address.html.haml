@@ -7,8 +7,8 @@
 .row
   .col-md-4
     %h3= t('.billing_address')
-    = render 'shared/error_messages', object: @billing_address
-    = form_for @billing_address, url: wizard_path, method: :patch do |bill|
+    = render 'shared/error_messages', object: @form.billing_address
+    = form_for @form.billing_address, url: wizard_path, method: :patch do |bill|
       = render 'address_form', addr: bill
       = bill.submit t('.save_and_continue'), class: 'btn btn-info'
   .col-md-4
@@ -16,10 +16,10 @@
     %h3= t('.order_summary')
     %p
       = t('.item_total')
-      %b= number_to_currency @order.total_price
+      %b= number_to_currency current_order.total_price
     %p
       = t('.order_total')
-      - if @order.discount
-        %b= number_to_currency @order.calc_discount
+      - if current_order.discount
+        %b= number_to_currency current_order.calc_discount
       - else
-        %b= number_to_currency @order.total_price
+        %b= number_to_currency current_order.total_price

@@ -7,8 +7,8 @@
 .row
   .col-md-4
     %h3 Credit card
-    = render 'shared/error_messages', object: @credit_card
-    = form_for @credit_card, url: wizard_path, method: :patch do |f|
+    = render 'shared/error_messages', object: @form.payment
+    = form_for @form.payment, url: wizard_path, method: :patch do |f|
       .form-group
         = f.text_field :number, class: 'form-control', placeholder: 'Number'
       .row.form-group
@@ -25,13 +25,13 @@
     %h3 Order Summary
     %p
       Item total:
-      %b= number_to_currency @order.total_price
+      %b= number_to_currency current_order.total_price
     %p
       Shipping:
-      %b= number_to_currency @order.delivery.price
+      %b= number_to_currency current_order.delivery.price
     %p
       Order total:
-      - if @order.discount
-        %b= number_to_currency @order.calc_discount + @order.delivery.price
+      - if current_order.discount
+        %b= number_to_currency current_order.calc_discount + current_order.delivery.price
       - else
-        %b= number_to_currency @order.total_price + @order.delivery.price
+        %b= number_to_currency current_order.total_price + current_order.delivery.price

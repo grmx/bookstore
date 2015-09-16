@@ -7,8 +7,8 @@
 .row
   .col-md-4
     %h3 Shipping Address
-    = render 'shared/error_messages', object: @shipping_address
-    = form_for @shipping_address, url: wizard_path, method: :patch do |shipp|
+    = render 'shared/error_messages', object: @form.shipping_address
+    = form_for @form.shipping_address, url: wizard_path, method: :patch do |shipp|
       = render 'address_form', addr: shipp
       = shipp.submit 'Save and continue', class: 'btn btn-info'
   .col-md-4
@@ -16,10 +16,10 @@
     %h3 Order Summary
     %p
       Item total:
-      %b= number_to_currency @order.total_price
+      %b= number_to_currency current_order.total_price
     %p
       Order total:
-      - if @order.discount
-        %b= number_to_currency @order.calc_discount
+      - if current_order.discount
+        %b= number_to_currency current_order.calc_discount
       - else
-        %b= number_to_currency @order.total_price
+        %b= number_to_currency current_order.total_price
