@@ -8,30 +8,42 @@ class CheckoutForm
   def update(step, params)
     case step
     when :billing_address
-      if @order.billing_address
-        @order.billing_address.assign_attributes(params[:address])
-      else
-        @order.create_billing_address(params[:address])
-      end
+      save_billing_address(params[:address])
     when :shipping_address
-      if @order.shipping_address
-        @order.shipping_address.assign_attributes(params[:address])
-      else
-        @order.create_shipping_address(params[:address])
-      end
+      save_shipping_address(params[:address])
     when :delivery
       @order.delivery = Delivery.find(params[:delivery][:id])
     when :payment
-      if @order.user.credit_card
-        @order.user.credit_card.assign_attributes(params[:credit_card])
-      else
-        @order.user.create_credit_card(params[:credit_card])
-      end
+      save_payment_settings(params[:credit_card])
     when :confirm
       @order.state = :in_queue
       @order.completed_at = Time.zone.now
       OrderNotifier.received(@order).deliver_now
     when :complete
+    end
+  end
+
+  def save_billing_address(address)
+    if @order.billing_address
+      @order.billing_address.assign_attributes(address)
+    else
+      @order.create_billing_address(address)
+    end
+  end
+
+  def save_shipping_address(address)
+    if @order.shipping_address
+      @order.shipping_address.assign_attributes(address)
+    else
+      @order.create_shipping_address(address)
+    end
+  end
+
+  def save_payment_settings(credit_card)
+    if @order.user.credit_card
+      @order.user.credit_card.assign_attributes(credit_card)
+    else
+      @order.user.create_credit_card(credit_card)
     end
   end
 
@@ -59,14 +71,5 @@ class CheckoutForm
 
   def build_address(type)
     @order.send("#{type}_address") || Address.new
-  end
-
-  def save_step(object)
-    if instance_variable_get("@#{object}").save
-      session[step.to_sym] = true
-      render_wizard @order
-    else
-      render_wizard
-    end
   end
 end

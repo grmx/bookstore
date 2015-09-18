@@ -8,16 +8,6 @@ class Rating < ActiveRecord::Base
   belongs_to :book
   belongs_to :user
 
-  rails_admin do
-    list do
-      field :state, :state
-      field :book
-      field :review
-      field :user
-    end
-    state({ states: { approved: 'label-success', rejected: 'label-warning' } })
-  end
-
   aasm column: 'state' do
     state :draft
     state :approved

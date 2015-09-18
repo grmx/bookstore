@@ -14,18 +14,6 @@ class Order < ActiveRecord::Base
   validates :state,
     inclusion: { in: %w(in_progress in_queue in_delivery delivered canceled) }
 
-  rails_admin do
-    list do
-      field :state, :state
-      include_all_fields
-      exclude_fields :completed_at, :updated_at
-    end
-    state({
-      events: { submit: 'btn-primary', ship: 'btn-info', complete: 'btn-success', 
-        cancel: 'btn-danger' }
-    })
-  end
-
   aasm column: 'state' do
     state :in_progress, initial: true
     state :in_queue

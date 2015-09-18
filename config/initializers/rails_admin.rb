@@ -54,5 +54,27 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model Order do
+    list do
+      field :state, :state
+      include_all_fields
+      exclude_fields :completed_at, :updated_at
+    end
+    state({
+      events: { submit: 'btn-primary', ship: 'btn-info', complete: 'btn-success', 
+        cancel: 'btn-danger' }
+    })
+  end
+
+  config.model Rating do
+    list do
+      field :state, :state
+      field :book
+      field :review
+      field :user
+    end
+    state({ states: { approved: 'label-success', rejected: 'label-warning' } })
+  end
+
   config.label_methods.unshift(:full_name)
 end
