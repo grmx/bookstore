@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   private
 
   def full_title(page_title)
