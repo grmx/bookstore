@@ -11,8 +11,8 @@ class Order < ActiveRecord::Base
 
   validates :total_price, :state, presence: true
   validates :total_price, numericality: { greater_than_or_equal_to: 0.01 }
-  validates :state,
-    inclusion: { in: %w(in_progress in_queue in_delivery delivered canceled) }
+  validates :state, inclusion: { in: %w(in_progress in_queue in_delivery
+                                        delivered canceled) }
 
   aasm column: 'state' do
     state :in_progress, initial: true
@@ -39,14 +39,16 @@ class Order < ActiveRecord::Base
   end
 
   def add_book(book)
-    current_item = self.order_items.find_or_initialize_by(book: book,
-      price: book.price)
+    current_item = order_items.find_or_initialize_by(book: book,
+                                                     price: book.price)
     current_item.increment(:quantity)
     current_item.save
   end
 
   def calc_total_price
-    self.total_price = self.order_items.map { |oi| oi.valid? ? oi.quantity * oi.price : nil }.sum
+    self.total_price = order_items.map do |oi|
+      oi.valid? ? oi.quantity * oi.price : nil
+    end.sum
   end
 
   def calc_discount
@@ -64,6 +66,6 @@ class Order < ActiveRecord::Base
   private
 
   def complete_order
-    self.completed_at = Time.now
+    self.completed_at = Time.zone.now
   end
 end

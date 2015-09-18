@@ -5,6 +5,6 @@ class Address < ActiveRecord::Base
   validates :phone, length: { minimum: 5, maximum: 12 }
 
   def full_name
-    "#{self.first_name} #{self.last_name}"
+    "#{first_name} #{last_name}"
   end
 end

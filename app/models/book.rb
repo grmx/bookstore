@@ -10,13 +10,14 @@ class Book < ActiveRecord::Base
   validates :title, :price, :stock, :author, :category, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }
 
-  scope :search, ->(keyword){ where('keywords LIKE ?', "%#{keyword.downcase}%") }
+  scope :search, ->(key) { where('keywords LIKE ?', "%#{key.downcase}%") }
 
   before_save :set_keywords
 
   private
 
   def set_keywords
-    self.keywords = [title, author.full_name, description].map(&:downcase).join(' ')
+    self.keywords = [title, author.full_name, description].map(&:downcase)
+      .join(' ')
   end
 end

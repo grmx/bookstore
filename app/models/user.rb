@@ -12,23 +12,23 @@ class User < ActiveRecord::Base
   has_one :credit_card, dependent: :destroy
   has_and_belongs_to_many :books
 
-  validates :email,
-    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :email, format:
+    { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
   def add_to_wishlist(book)
-    self.books << book
+    books << book
   end
 
   def remove_from_wishlist(book)
-    self.books.delete book
+    books.delete book
   end
 
   def book_in_wishlist?(book)
-    self.books.include?(book)
+    books.include?(book)
   end
 
   def self.find_for_oauth(auth)
-    identity = Identity.where(provider: auth.provider, uid: auth.uid.to_s).first
+    identity = Identity.find_by_provider_and_uid(auth.provider, auth.uid.to_s)
     return identity.user if identity
 
     email = auth.info.email
@@ -38,13 +38,14 @@ class User < ActiveRecord::Base
     else
       password = Devise.friendly_token[0, 20]
       user = User.create!(email: email, password: password,
-        password_confirmation: password, remote_avatar_url: auth.info.image)
+                          password_confirmation: password,
+                          remote_avatar_url: auth.info.image)
       user.create_identity(auth)
     end
     user
   end
 
   def create_identity(auth)
-    self.identities.create(provider: auth.provider, uid: auth.uid)
+    identities.create(provider: auth.provider, uid: auth.uid)
   end
 end

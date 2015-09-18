@@ -14,7 +14,7 @@ class Rating < ActiveRecord::Base
     state :rejected
 
     event :approve do
-      transitions from: :draft, to: :approved 
+      transitions from: :draft, to: :approved
     end
 
     event :reject do
