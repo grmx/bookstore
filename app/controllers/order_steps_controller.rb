@@ -1,11 +1,12 @@
 class OrderStepsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :build_form
 
   include OrderStepsHelper
   include Wicked::Wizard
 
-  steps :billing_address, :shipping_address, :delivery, :payment, :confirm, :complete
+  steps :billing_address, :shipping_address, :delivery, :payment, :confirm,
+        :complete
 
   def show
     validate_step
@@ -25,7 +26,8 @@ class OrderStepsController < ApplicationController
   end
 
   def order_steps_params
-    params.permit(address: [:first_name, :last_name, :address, :city, :country, :zipcode, :phone],
+    params.permit(address: [:first_name, :last_name, :address, :city, :country,
+                            :zipcode, :phone],
                   credit_card: [:number, :exp_month, :exp_year, :cvv],
                   delivery: :id)
   end

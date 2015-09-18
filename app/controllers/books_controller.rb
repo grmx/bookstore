@@ -1,14 +1,7 @@
 class BooksController < ApplicationController
   def index
-    if params[:set_locale]
-      redirect_to root_url(locale: params[:set_locale])
-    else
-      @books = if params[:search]
-        Book.search(params[:search]).order(:title).page(params[:page]).per(9)
-      else
-        Book.order(:title).page(params[:page]).per(9)
-      end
-    end
+    redirect_to root_url(locale: params[:set_locale]) if params[:set_locale]
+    @books = params[:search] ? search_collection : books_collection
   end
 
   def show
@@ -23,25 +16,33 @@ class BooksController < ApplicationController
 
   def add_to_wishlist
     book = Book.find(params[:id])
-    unless current_user.book_in_wishlist?(book)
-      current_user.add_to_wishlist(book)
-      flash[:success] = "The book successfully added to Wishlist"
-      redirect_to book_path(book)
+    if current_user.book_in_wishlist?(book)
+      flash[:danger] = 'The book already in Wishlist'
     else
-      flash[:danger] = "The book already in Wishlist"
-      redirect_to book_path(book)
+      current_user.add_to_wishlist(book)
+      flash[:success] = 'The book successfully added to Wishlist'
     end
+    redirect_to book_path(book)
   end
 
   def remove_from_wishlist
     book = Book.find(params[:id])
     if current_user.book_in_wishlist?(book)
       current_user.remove_from_wishlist(book)
-      flash[:warning] = "The book successfully removed from Wishlist"
-      redirect_to book_path(book)
+      flash[:warning] = 'The book successfully removed from Wishlist'
     else
-      flash[:danger] = "We have some problems"
-      redirect_to book_path(book)
+      flash[:danger] = 'We have some problems'
     end
+    redirect_to book_path(book)
+  end
+
+  private
+
+  def search_collection
+    Book.search(params[:search]).order(:title).page(params[:page]).per(9)
+  end
+
+  def books_collection
+    Book.order(:title).page(params[:page]).per(9)
   end
 end

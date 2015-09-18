@@ -1,5 +1,6 @@
 class OrderItemsController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource only: [:update, :destroy]
 
   def create
     book = Book.find(params[:book_id])
@@ -8,35 +9,35 @@ class OrderItemsController < ApplicationController
     order.calc_total_price
     if order.save
       flash[:success] = 'The book successfully added to the Cart.'
-      redirect_to cart_path
     else
       flash.now[:danger] = 'We have some problems.'
-      redirect_to :back
     end
+    redirect_to cart_path
   end
 
   def update
-    order_item = OrderItem.find(params[:id])
-    authorize! :update, order_item
-    order_item.update(quantity: params[:order_item][:quantity])
-    order_item.order.calc_total_price
-    if order_item.order.save
+    @order_item.update(order_item_params)
+    @order_item.order.calc_total_price
+    if @order_item.order.save
       flash[:info] = 'The Cart successfully updated.'
-      redirect_to cart_path
     else
       flash.now[:warning] = 'Sorry, this book is not present in stock.'
-      redirect_to cart_path
     end
+    redirect_to cart_path
   end
 
   def destroy
-    order_item = OrderItem.find(params[:id])
-    authorize! :delete, order_item
-    order_item.destroy
-    order = order_item.order
+    @order_item.destroy
+    order = @order_item.order
     order.calc_total_price
     order.save
     flash[:warning] = 'The book successfully removed from shopping cart.'
     redirect_to cart_path
+  end
+
+  private
+
+  def order_item_params
+    params.require(:order_item).permit(:id, :quantity)
   end
 end
