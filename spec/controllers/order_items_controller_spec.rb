@@ -10,7 +10,7 @@ RSpec.describe OrderItemsController, type: :controller do
     @ability.extend(CanCan::Ability)
     allow(controller).to receive(:current_ability).and_return(@ability)
     @ability.can :manage, OrderItem, user: @user
-    request.env["HTTP_REFERER"] = cart_path
+    request.env['HTTP_REFERER'] = cart_path
   end
 
   describe 'POST #create' do
@@ -37,6 +37,26 @@ RSpec.describe OrderItemsController, type: :controller do
         expect { post :create, book_id: 'abcd' }
           .to raise_error(ActiveRecord::RecordNotFound)
       end
+    end
+  end
+
+  describe 'PUT #update' do
+    let!(:order) { create(:order, user: @user) }
+    let!(:order_item) { create(:order_item, order: order) }
+
+    it 'updates order items quantity' do
+      expect { post :update, id: order_item.id, order_item: { quantity: 2 } }.
+        to change{order.order_items.first.quantity}.from(1).to(2)
+    end
+
+    it 'assigns an info flash message' do
+      put :update, id: order_item.id, order_item: { quantity: 2 }
+      expect(flash[:info]).not_to be_nil
+    end
+
+    it 'redirects to the cart' do
+      post :update, id: order_item.id, order_item: { quantity: 2 }
+      expect(response).to redirect_to cart_path
     end
   end
 
