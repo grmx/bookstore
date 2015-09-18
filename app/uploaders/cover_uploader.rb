@@ -1,7 +1,5 @@
 # encoding: utf-8
-
 class CoverUploader < CarrierWave::Uploader::Base
-
   include CarrierWave::MiniMagick
 
   storage :file
@@ -19,5 +17,4 @@ class CoverUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(jpg jpeg png)
   end
-
 end

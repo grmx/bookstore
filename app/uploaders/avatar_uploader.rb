@@ -1,7 +1,5 @@
 # encoding: utf-8
-
 class AvatarUploader < CarrierWave::Uploader::Base
-
   include CarrierWave::MiniMagick
 
   storage :file
@@ -19,5 +17,4 @@ class AvatarUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(jpg jpeg png)
   end
-
 end
