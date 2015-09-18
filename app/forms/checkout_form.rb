@@ -16,10 +16,7 @@ class CheckoutForm
     when :payment
       save_payment_settings(params[:credit_card])
     when :confirm
-      @order.state = :in_queue
-      @order.completed_at = Time.zone.now
-      OrderNotifier.received(@order).deliver_now
-    when :complete
+      order_confirmation
     end
   end
 
@@ -45,6 +42,12 @@ class CheckoutForm
     else
       @order.user.create_credit_card(credit_card)
     end
+  end
+
+  def order_confirmation
+    @order.state = :in_queue
+    @order.completed_at = Time.zone.now
+    OrderNotifier.received(@order).deliver_now
   end
 
   def save
