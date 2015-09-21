@@ -1,6 +1,4 @@
 module ApplicationHelper
-  private
-
   def full_title(page_title)
     base_title = 'Bookstore'
     if page_title.empty?

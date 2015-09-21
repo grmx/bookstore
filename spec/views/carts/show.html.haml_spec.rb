@@ -5,24 +5,25 @@ RSpec.describe "carts/show", type: :view do
   let(:book) { order.order_items.first.book }
 
   before do
+    allow(view).to receive(:current_order).and_return(order)
     assign(:order, order)
     assign(:order_items, order.order_items)
     render
   end
 
-  xit 'has a book cover' do
+  it 'has a book cover' do
     expect(rendered).to have_css "img[src$='#{book.cover.thumb}']"
   end
 
-  xit 'has a book title' do
+  it 'has a book title' do
     expect(rendered).to have_content book.title
   end
 
-  xit 'has a book price' do
+  it 'has a book price' do
     expect(rendered).to have_content book.price
   end
 
-  xit 'has total price' do
+  it 'has total price' do
     expect(rendered).to have_content order.total_price
   end
 end
