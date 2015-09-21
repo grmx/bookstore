@@ -4,6 +4,11 @@ class BooksController < ApplicationController
     @books = params[:search] ? search_collection : books_collection
   end
 
+  def bestsellers
+    @bestsellers_id = OrderItem.bestsellers.map!(&:book_id)
+    @bestsellers = Book.find(@bestsellers_id)
+  end
+
   def show
     @book = Book.find(params[:id])
     @rating = Rating.new

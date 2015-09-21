@@ -8,7 +8,7 @@ feature 'View book info', %q{
   given!(:book) { create(:book) }
 
   scenario 'Visitor views a book page' do
-    visit root_path
+    visit books_path(:en)
     click_on book.title
 
     expect(current_path).to eq book_path(:en, book)

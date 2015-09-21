@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   scope '(:locale)' do
-    root 'books#index'
+    root 'books#bestsellers'
     resources :books do
       resources :ratings, only: :create
       get    'wishlist',  to: 'books#wishlist',             on: :collection

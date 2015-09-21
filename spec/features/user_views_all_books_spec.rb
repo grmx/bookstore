@@ -8,7 +8,7 @@ feature 'View all books', %q{
   given!(:books) { create_list(:book, 3) }
 
   scenario 'Visitor searches books on books_path' do
-    visit books_path
+    visit books_path(:en)
 
     expect(page).to have_content 'All books'
     books.each do |book|

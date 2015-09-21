@@ -18,7 +18,7 @@ feature 'Upload cover', %q{
     expect(page).to have_content 'Book successfully updated'
     visit book_path(:en, book)
     expect(page).to have_css "img[src$='cover.jpg']"
-    visit books_path
+    visit books_path(:en)
     expect(page).to have_css "img[src$='thumb_cover.jpg']"
   end
 

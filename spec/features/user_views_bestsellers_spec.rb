@@ -5,12 +5,18 @@ feature 'View best sellers', %q{
   I want to see best sellers on the main page
 } do
 
-  given!(:books) { create_list(:book, 3) }
+  given!(:orders) { create_list(:order_with_items, 3) }
 
-  scenario 'Visitor searches books on main page' do
+  background do
+    @bestsellers_array = OrderItem.bestsellers.map!(&:book_id)
+    @books = Book.find(@bestsellers_array)
+  end
+
+  scenario 'Visitor searches bestsellers on main page' do
     visit root_path
-    books.each do |book|
-      expect(page).to have_content(book.title)
+    expect(page).to have_content 'Bestsellers'
+    @books.each do |book|
+      expect(page).to have_content book.title
     end
   end
 end
