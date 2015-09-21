@@ -71,6 +71,14 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '.last_order' do
+    let!(:orders_in_queue) { create_list(:order, 2, user: user, state: 'in_queue') }
+
+    it 'returns the last order with state in_queue' do
+      expect(user.last_order).to eq orders_in_queue.last
+    end
+  end
+
   describe '.find_for_oauth' do
     let!(:user) { create(:user) }
     let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456') }

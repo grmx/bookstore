@@ -45,7 +45,7 @@ RSpec.describe OrderItemsController, type: :controller do
     let!(:order_item) { create(:order_item, order: order) }
 
     it 'updates order items quantity' do
-      expect { post :update, id: order_item.id, order_item: { quantity: 2 } }.
+      expect { put :update, id: order_item.id, order_item: { quantity: 2 } }.
         to change{order.order_items.first.quantity}.from(1).to(2)
     end
 
@@ -55,7 +55,7 @@ RSpec.describe OrderItemsController, type: :controller do
     end
 
     it 'redirects to the cart' do
-      post :update, id: order_item.id, order_item: { quantity: 2 }
+      put :update, id: order_item.id, order_item: { quantity: 2 }
       expect(response).to redirect_to cart_path
     end
   end

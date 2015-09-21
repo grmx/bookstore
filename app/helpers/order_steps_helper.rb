@@ -1,8 +1,4 @@
 module OrderStepsHelper
-  def last_order
-    current_user.orders.in_queue.last
-  end
-
   private
 
   def validate_step

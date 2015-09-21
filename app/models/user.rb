@@ -48,4 +48,8 @@ class User < ActiveRecord::Base
   def create_identity(auth)
     identities.create(provider: auth.provider, uid: auth.uid)
   end
+
+  def last_order
+    self.orders.in_queue.last
+  end
 end
