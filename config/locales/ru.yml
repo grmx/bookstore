@@ -30,12 +30,13 @@ ru:
       update_cart: Обновить корзину
       with_coupon: со скидкой
       your_cart: Ваша корзина
-      your_shopping_cart_is_empty: Ваша карзина пуста.
+      your_shopping_cart_is_empty: Ваша корзина пуста.
   layouts:
     footer:
       about: О нас
       help: Помощь
     header:
+      shop: Магазин
       admin_panel: Админпанель
       cart: Корзина
       my_orders: Мои заказы

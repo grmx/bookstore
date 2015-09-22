@@ -14,7 +14,7 @@
           .form-group
             = text_field_tag :search, params[:search], placeholder: "#{t('.search_books')}", class: 'form-control'
           = submit_tag "#{t('.search')}", class: 'btn btn-default'
-        %li= link_to 'All books', books_path
+        %li= link_to t('.shop'), books_path
         - if user_signed_in?
           %li
             = link_to cart_path do

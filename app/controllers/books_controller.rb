@@ -1,10 +1,10 @@
 class BooksController < ApplicationController
   def index
-    redirect_to root_url(locale: params[:set_locale]) if params[:set_locale]
     @books = params[:search] ? search_collection : books_collection
   end
 
   def bestsellers
+    redirect_to root_url(locale: params[:set_locale]) if params[:set_locale]
     @bestsellers_id = OrderItem.bestsellers.map!(&:book_id)
     @bestsellers = Book.find(@bestsellers_id)
   end
