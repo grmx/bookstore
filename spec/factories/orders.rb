@@ -20,5 +20,11 @@ FactoryGirl.define do
     end
 
     factory :order_with_random_state, traits: [:random_state]
+
+    factory :blank_order do
+      billing_address nil
+      shipping_address nil
+      delivery nil
+    end
   end
 end

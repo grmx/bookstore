@@ -13,7 +13,7 @@
         %strong= number_to_currency item.price
         %span.text-muted x
     .col-xs-4
-      = f.number_field :quantity, class: 'form-control input-sm', id: 'qnty'
+      = f.number_field :quantity, class: 'form-control input-sm', id: 'qnty', min: 0
     .col-xs-2
       = link_to order_item_path(item), method: :delete, id: 'book-remove',
         data: { confirm: t('.are_you_sure') }, class: 'btn btn-link btn-xs' do
