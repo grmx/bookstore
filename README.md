@@ -8,4 +8,4 @@ A simple online store based on Ruby on Rails.
 
 ## Demo
 
-[Bookstore](http://bookstore.pp.ua/)
+[Bookstore](https://bookstore-on-rails.herokuapp.com)
